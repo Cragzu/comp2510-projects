@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/lab02/main.c
+stdio.h
+-
+tokenize_string.h
+C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/lab02/tokenize_string.h
+
+C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/lab02/tokenize_string.h
+
