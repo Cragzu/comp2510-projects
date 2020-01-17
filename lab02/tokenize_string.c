@@ -5,21 +5,18 @@
 #include "tokenize_string.h"
 
 void printTokens(char *inputString) {
-    /* iterate through the string
-     * separate string into words
-     * when we encounter a space, the word is finished
-     * account for more than one space
-     */
+    /*Given a string, print it in "tokenized" form (one word on each line).*/
+    const SPACE_CHARACTER = ' ';
 
-    while(*inputString == ' ') { // exception for leading whitespace
+    while(*inputString == SPACE_CHARACTER) { // exception for leading whitespace
         inputString++;
     }
 
     while(*inputString) { // continue looping while there are characters in the string
         printf("%c", *inputString);
 
-        if(*inputString == ' ') { // check for space
-            while(*inputString == ' ') { // account for multiple spaces in a row
+        if(*inputString == SPACE_CHARACTER) { // check for space
+            while(*inputString == SPACE_CHARACTER) { // account for multiple spaces in a row
                 *inputString++;
             }
             printf("\n"); // start a newline when a space is encountered
