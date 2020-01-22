@@ -2,6 +2,9 @@
 #include "justify_string.h"
 
 int main() {
-    moveToBeginningOfNextToken("A");
+    char testSentence[50] = "      Hello there! How is it      going?  ";
+    moveToBeginningOfNextToken(testSentence);
+
+    getCurrentTokenSize(testSentence);
     return 0;
 }
