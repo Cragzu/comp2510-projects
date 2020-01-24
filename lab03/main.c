@@ -27,6 +27,6 @@ void printAllSubsets(int number) {
 }
 
 int main() {
-    printAllSubsets(5);
+    printAllSubsets(4);
     return 0;
 }

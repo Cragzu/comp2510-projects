@@ -6,11 +6,13 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A2/justify_string.h
-
-C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A2/main.c
+C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A2/justify_string.c
 stdio.h
 -
+stdbool.h
+-
 justify_string.h
+C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A2/justify_string.h
+
 C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A2/justify_string.h
 

@@ -36,14 +36,39 @@ int getCurrentTokenSize(char *inputString) {
  * This function would fill the tokens array to be like this:
  * tokens[0] = “Hi.”, tokens[1] = “How”, tokens[3] = “is” and so on.*/
 int tokenize(char *paragraph, char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH]) {
-    char *startOfCurrentToken = moveToBeginningOfNextToken(paragraph);
-    while (*startOfCurrentToken) {
-        printf("%c.", *startOfCurrentToken);
-        startOfCurrentToken++;
+
+    int wordCount = 0;
+
+    paragraph = moveToBeginningOfNextToken(paragraph);
+
+    int currentWordSize = getCurrentTokenSize(paragraph);
+
+    while(*paragraph) {
+
+        for (int i = 0; i < currentWordSize; i++) { // place characters in initial word array
+            tokens[wordCount][i] = *paragraph;
+
+            printf("%c", tokens[wordCount][i]);
+
+            paragraph++;
+        }
+        printf("\n");
+
+        wordCount++;
+        paragraph = moveToBeginningOfNextToken(paragraph);
+        currentWordSize = getCurrentTokenSize(paragraph);
     }
-    for (int i = 0; i <= 3; i++) {
-        printf("%s", tokens[i]);
-    }
+
+
+
+
+//    while (*startOfCurrentToken) {
+//        printf("%c.", *startOfCurrentToken);
+//        startOfCurrentToken++;
+//    }
+//    for (int i = 0; i <= 3; i++) {
+//        printf("%s", tokens[i]);
+//    }
 
     return 0;
 }

@@ -12,8 +12,9 @@ int main() {
     int tokenSize = getCurrentTokenSize(beginningOfFirstToken);
     printf("size of token (first word): \n%d\n", tokenSize);
 
-//    char array[MAX_WORD_LENGTH][MAX_NUMBER_OF_WORDS];
-//    tokenize(beginningOfFirstToken, array);
+    printf("tokenize output:\n");
+    char array[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH];
+    tokenize(beginningOfFirstToken, array);
 
     return 0;
 }
