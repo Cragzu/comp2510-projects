@@ -14,19 +14,21 @@ char *moveToBeginningOfNextToken(char *inputString) {
     while(*inputString == SPACE_CHARACTER) { // move pointer forward as long as space is encountered
         inputString++;
     }
-    printf("%c", *inputString);
-    printf("\n");
+    return inputString;
 }
 
 /*given a string with no leading spaces, returns the size of the first word.
 * For example, if the string is “Hello world”, it should return 5.*/
 int getCurrentTokenSize(char *inputString) {
-    printf("Test");
-    printf("%c", *inputString);
-    while(*inputString) { // continue looping while there are characters in the string
-        printf("%c", *inputString);
-        *inputString++;
+    int tokenSize = 0;
+    while (*inputString) { // continue looping through the string
+        if (*inputString == SPACE_CHARACTER) { // break once space is encountered
+            break;
+        }
+        tokenSize++;
+        inputString++;
     }
+    return tokenSize;
 }
 
 
