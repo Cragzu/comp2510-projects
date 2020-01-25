@@ -4,27 +4,12 @@
 #define MAX_NUMBER_OF_WORDS 100
 
 int main() {
-    char originalString[50] = "      Hello there! How is it      going?  ";\
+    char originalString[MAX_NUMBER_OF_WORDS*MAX_WORD_LENGTH] = "Hi everyone. This is the 2nd assignment. "
+                                                               "Please make sure you start early as this "
+                                                               "is going to take some time!";
 
-    char * beginningOfFirstToken = moveToBeginningOfNextToken(originalString);
-    printf("pointer moved to beginning: \n%s\n", beginningOfFirstToken);
-
-    int tokenSize = getCurrentTokenSize(beginningOfFirstToken);
-    printf("size of token (first word): \n%d\n", tokenSize);
-
-    printf("tokenize output:\n");
-    char array[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH];
-
-    int numOfWordsInArray = tokenize(beginningOfFirstToken, array);
-
-    int wordsForNextLine = getNumberOfWordsForNextLine(array, 0,
-            numOfWordsInArray, 15);
-    printf("number of words for line: %d\n", wordsForNextLine);
-
-
-//    printWordAndSpaces(originalString, 4);
-
-
+    printf("Final sentence looks like:\n");
+    formatAndPrintParagraph(originalString, 25);
 
     return 0;
 }
