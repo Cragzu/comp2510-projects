@@ -70,7 +70,7 @@ int getNumberOfWordsForNextLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH
     do {
         currentWordLength = strlen(tokens[numberOfWordsProcessedSoFar + wordsForNextLine]);
 
-        if (subtotal + currentWordLength > lineLength) {
+        if (subtotal + currentWordLength + (wordsForNextLine - 1) > lineLength) {
             break;
         }
 
@@ -79,11 +79,6 @@ int getNumberOfWordsForNextLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH
 
     } while (wordsForNextLine < totalNumberOfWords);
 
-    int minimumNumOfSpaces = (wordsForNextLine - 1); // amount of spaces to go after each word, except the last
-
-    if (subtotal + minimumNumOfSpaces > lineLength) { // account for needing at least 1 space between words
-        wordsForNextLine--;
-    }
     return wordsForNextLine;
 }
 
