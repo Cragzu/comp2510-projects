@@ -12,6 +12,6 @@ int getNumberOfWordsForNextLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH
 void printWordAndSpaces(char word[MAX_WORD_LENGTH], int numberOfSpaces);
 void formatAndPrintCurrentLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH], int numberOfWordsProcessedSoFar,
         int numberOfWordsOnNextLine, int lineLength);
-
+void formatAndPrintWords(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH], int totalNumberOfWords, int lineLength);
 int formatAndPrintParagraph(char * paragraph, int lineLength);
 #endif //A2_JUSTIFY_STRING_H

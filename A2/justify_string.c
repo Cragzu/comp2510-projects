@@ -46,11 +46,8 @@ int tokenize(char *paragraph, char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH])
         for (int i = 0; i < currentWordSize; i++) { // place characters in initial word array
             tokens[wordCount][i] = *paragraph;
 
-            printf("%c", tokens[wordCount][i]); // todo: remove print
-
             paragraph++;
         }
-        printf("\n");
 
         tokens[wordCount][currentWordSize] = *"\0"; // to ensure strlen works properly
         wordCount++;
@@ -80,20 +77,14 @@ int getNumberOfWordsForNextLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH
         subtotal += currentWordLength;
             wordsForNextLine++;
 
-        printf("%d ", strlen(tokens[numberOfWordsProcessedSoFar + wordsForNextLine]));
-        printf("%c   ", tokens[numberOfWordsProcessedSoFar + wordsForNextLine][0]);
-        printf("   Subtotal: %d\n", subtotal);
-
     } while (wordsForNextLine < totalNumberOfWords);
 
-    int minimumNumOfSpaces = (wordsForNextLine - 1); // amount of spaces to go after each word
+    int minimumNumOfSpaces = (wordsForNextLine - 1); // amount of spaces to go after each word, except the last
 
     if (subtotal + minimumNumOfSpaces > lineLength) { // account for needing at least 1 space between words
         wordsForNextLine--;
     }
-
     return wordsForNextLine;
-
 }
 
 /*This function simply prints a string followed by some number of spaces (no new line).*/
@@ -117,16 +108,11 @@ void formatAndPrintCurrentLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH]
         subtotal += strlen(tokens[i]);
     }
 
-    printf("Number of chars in current line: %d\n", subtotal);
-
     int numOfSpaces = lineLength - subtotal;
-    printf("Num of spaces needed on this line: %d\n", numOfSpaces);
 
     int evenlyDividedSpaces = numOfSpaces / (numberOfWordsOnNextLine - 1); // amount of spaces to go after each word
-    printf("Each word gets at least %d spaces\n", evenlyDividedSpaces);
 
     int remainderSpaces = numOfSpaces % (numberOfWordsOnNextLine - 1);
-    printf("There are %d remainder spaces\n", remainderSpaces);
 
     int spacesForCurrentWord;
 
@@ -141,6 +127,20 @@ void formatAndPrintCurrentLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH]
     }
 }
 
+/*This function formats words in a string array (tokens) on lines of length lineLength.*/
+void formatAndPrintWords(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH], int totalNumberOfWords, int lineLength) {
+    int numberOfWordsProcessedSoFar = 0;
+
+    while (numberOfWordsProcessedSoFar <= totalNumberOfWords) {
+        int wordsForNextLine = getNumberOfWordsForNextLine(tokens, numberOfWordsProcessedSoFar,
+                totalNumberOfWords, lineLength);
+        formatAndPrintCurrentLine(tokens, numberOfWordsProcessedSoFar, wordsForNextLine, lineLength);
+
+        numberOfWordsProcessedSoFar += wordsForNextLine;
+
+        printf("\n");
+    }
+}
 
 /**
  * Gets the input and prints the paragraph using helper functions.
@@ -150,7 +150,7 @@ void formatAndPrintCurrentLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH]
  * @return program code (0) to indicate successful execution.
  */
 int formatAndPrintParagraph(char * paragraph, int lineLength) {
-    // linelength = 20
+    // linelength = 25
     char * beginningOfFirstToken = moveToBeginningOfNextToken(paragraph);
 
     char array[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH];
@@ -160,7 +160,7 @@ int formatAndPrintParagraph(char * paragraph, int lineLength) {
             numOfWordsInArray, lineLength);
     printf("Words for next line: %d\n", wordsForNextLine);
 
-    formatAndPrintCurrentLine(array, 0, wordsForNextLine, lineLength);
-
+    printf("Final formatted paragraph:\n");
+    formatAndPrintWords(array, numOfWordsInArray, lineLength);
 
 }
