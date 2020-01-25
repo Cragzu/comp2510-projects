@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "justify_string.h"
+#include "A01166947_justify_string.h"
 #define MAX_WORD_LENGTH 20
 #define MAX_NUMBER_OF_WORDS 100
 

@@ -3,4 +3,4 @@ project(A2 C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(A2 main.c justify_string.c justify_string.h)
+add_executable(A2 main.c A01166947_justify_string.c A01166947_justify_string.h)
