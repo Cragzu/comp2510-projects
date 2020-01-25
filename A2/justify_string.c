@@ -54,7 +54,7 @@ int tokenize(char *paragraph, char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH])
         paragraph = moveToBeginningOfNextToken(paragraph);
         currentWordSize = getCurrentTokenSize(paragraph);
     }
-    return wordCount + 1; // number of words in the tokens array
+    return wordCount; // number of words in the tokens array
 }
 
 /*Given the array of tokens (words), number of words that we have processed so far,
@@ -77,7 +77,7 @@ int getNumberOfWordsForNextLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH
         subtotal += currentWordLength;
             wordsForNextLine++;
 
-    } while (wordsForNextLine < totalNumberOfWords);
+    } while (wordsForNextLine + numberOfWordsProcessedSoFar < totalNumberOfWords);
 
     return wordsForNextLine;
 }
@@ -99,7 +99,7 @@ void formatAndPrintCurrentLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH]
         int numberOfWordsOnNextLine, int lineLength) {
 
     int subtotal = 0;
-    for (int i = numberOfWordsProcessedSoFar; i < numberOfWordsOnNextLine; i++) {
+    for (int i = numberOfWordsProcessedSoFar; i < numberOfWordsProcessedSoFar + numberOfWordsOnNextLine; i++) {
         subtotal += strlen(tokens[i]);
     }
 
@@ -111,7 +111,9 @@ void formatAndPrintCurrentLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH]
 
     int spacesForCurrentWord;
 
-    while (numberOfWordsProcessedSoFar != numberOfWordsOnNextLine) {
+    int wordsToGo = numberOfWordsProcessedSoFar + numberOfWordsOnNextLine;
+
+    while (numberOfWordsProcessedSoFar != wordsToGo) {
         spacesForCurrentWord = evenlyDividedSpaces;
         if (remainderSpaces > 0) {
             spacesForCurrentWord++;
@@ -145,17 +147,11 @@ void formatAndPrintWords(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH], int 
  * @return program code (0) to indicate successful execution.
  */
 int formatAndPrintParagraph(char * paragraph, int lineLength) {
-    // linelength = 25
     char * beginningOfFirstToken = moveToBeginningOfNextToken(paragraph);
 
     char array[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH];
     int numOfWordsInArray = tokenize(beginningOfFirstToken, array);
 
-    int wordsForNextLine = getNumberOfWordsForNextLine(array, 0,
-            numOfWordsInArray, lineLength);
-    printf("Words for next line: %d\n", wordsForNextLine);
-
-    printf("Final formatted paragraph:\n");
     formatAndPrintWords(array, numOfWordsInArray, lineLength);
-
+    return 0;
 }

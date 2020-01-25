@@ -7,7 +7,7 @@ int main() {
     char originalString[MAX_NUMBER_OF_WORDS*MAX_WORD_LENGTH] = "Hi everyone. This is the 2nd assignment. "
                                                                "Please make sure you start early as this "
                                                                "is going to take some time!";
-    int lineLength = 25;
+    int lineLength = 40;
 
     formatAndPrintParagraph(originalString, lineLength);
 
