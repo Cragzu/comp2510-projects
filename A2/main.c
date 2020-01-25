@@ -14,9 +14,17 @@ int main() {
 
     printf("tokenize output:\n");
     char array[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH];
-    tokenize(beginningOfFirstToken, array);
 
-    printWordAndSpaces(originalString, 4);
+    int numOfWordsInArray = tokenize(beginningOfFirstToken, array);
+
+    int wordsForNextLine = getNumberOfWordsForNextLine(array, 0,
+            numOfWordsInArray, 15);
+    printf("number of words for line: %d\n", wordsForNextLine);
+
+
+//    printWordAndSpaces(originalString, 4);
+
+
 
     return 0;
 }

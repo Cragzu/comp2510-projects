@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 #include "justify_string.h"
 
 #define MAX_WORD_LENGTH 20
@@ -45,12 +46,13 @@ int tokenize(char *paragraph, char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH])
         for (int i = 0; i < currentWordSize; i++) { // place characters in initial word array
             tokens[wordCount][i] = *paragraph;
 
-            printf("%c", tokens[wordCount][i]);
+            printf("%c", tokens[wordCount][i]); // todo: remove print
 
             paragraph++;
         }
         printf("\n");
 
+        tokens[wordCount][currentWordSize] = *"\0"; // to ensure strlen works properly
         wordCount++;
         paragraph = moveToBeginningOfNextToken(paragraph);
         currentWordSize = getCurrentTokenSize(paragraph);
@@ -64,6 +66,27 @@ int tokenize(char *paragraph, char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH])
 int getNumberOfWordsForNextLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH],
         int numberOfWordsProcessedSoFar, int totalNumberOfWords, int lineLength) {
 
+    int subtotal = 0; // total number of chars so far
+    int wordsForNextLine = 0;
+    int currentWordLength;
+
+    do {
+        currentWordLength = strlen(tokens[numberOfWordsProcessedSoFar + wordsForNextLine]);
+
+        if (subtotal + currentWordLength > lineLength) {
+            break;
+        }
+
+        subtotal += currentWordLength;
+            wordsForNextLine++;
+
+        printf("%d", strlen(tokens[numberOfWordsProcessedSoFar + wordsForNextLine]));
+        printf("%c   ", tokens[numberOfWordsProcessedSoFar + wordsForNextLine][0]);
+        printf("   Subtotal: %d\n", subtotal);
+
+    } while (wordsForNextLine < totalNumberOfWords);
+
+    return wordsForNextLine;
 
 }
 
