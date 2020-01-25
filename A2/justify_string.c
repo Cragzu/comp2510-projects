@@ -1,16 +1,19 @@
 // Created by Chloe Glave (A01166947) on 1/21/2020.
 
 #include <stdio.h>
-#include <stdbool.h>
 #include <string.h>
-#include "justify_string.h"
 
 #define MAX_WORD_LENGTH 20
 #define MAX_NUMBER_OF_WORDS 100
 const char SPACE_CHARACTER = ' ';
 
-/*Takes a string and moves the pointer to the first non-blank character
-* (or end of the string if there is no non-blank character).*/
+/**
+ * Takes a string and moves the pointer to the first non-blank character
+ * (or end of the string if there is no non-blank character).
+ *
+ * @param inputString the given string.
+ * @return the pointer to the first non-blank char in the string.
+ */
 char *moveToBeginningOfNextToken(char *inputString) {
     while(*inputString == SPACE_CHARACTER) { // move pointer forward as long as space is encountered
         inputString++;
@@ -18,8 +21,12 @@ char *moveToBeginningOfNextToken(char *inputString) {
     return inputString;
 }
 
-/*given a string with no leading spaces, returns the size of the first word.
-* For example, if the string is “Hello world”, it should return 5.*/
+/**
+ * Returns the size of the first word in a given string (with no leading spaces).
+ *
+ * @param inputString the given string.
+ * @return the size of the first word in the string.
+ */
 int getCurrentTokenSize(char *inputString) {
     int tokenSize = 0;
     while (*inputString) { // continue looping through the string
@@ -32,10 +39,13 @@ int getCurrentTokenSize(char *inputString) {
     return tokenSize;
 }
 
-/*given the paragraph, it breaks it down into words. Stores the words in the given tokens array of string.
- * For example, for paragraph = “Hi.   How is it going?    Thanks.”
- * This function would fill the tokens array to be like this:
- * tokens[0] = “Hi.”, tokens[1] = “How”, tokens[3] = “is” and so on.*/
+/**
+ * Populates the given array with individual words from the paragraph.
+ *
+ * @param paragraph the string to be broken up into words.
+ * @param tokens the array to populate with words.
+ * @return the total number of words placed in the array.
+ */
 int tokenize(char *paragraph, char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH]) {
     int wordCount = 0;
     paragraph = moveToBeginningOfNextToken(paragraph);
@@ -57,9 +67,15 @@ int tokenize(char *paragraph, char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH])
     return wordCount; // number of words in the tokens array
 }
 
-/*Given the array of tokens (words), number of words that we have processed so far,
- * total number of words (size of the string array) and line length (from the formatAndPrintParagraph function):
- * It returns the number of words that needs to be printed on the next line.*/
+/**
+ * Calculates the number of words that need to be printed on the next line.
+ *
+ * @param tokens the 2d array containing the words.
+ * @param numberOfWordsProcessedSoFar the number of words in the sentence that have already been printed.
+ * @param totalNumberOfWords the total number of words in the array.
+ * @param lineLength the given length each line should be.
+ * @return the number of words to print on the next line.
+ */
 int getNumberOfWordsForNextLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH],
         int numberOfWordsProcessedSoFar, int totalNumberOfWords, int lineLength) {
 
@@ -82,7 +98,11 @@ int getNumberOfWordsForNextLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH
     return wordsForNextLine;
 }
 
-/*This function simply prints a string followed by some number of spaces (no new line).*/
+/**
+ * Prints a string followed by some number of spaces (no new line).
+ * @param word the string to be printed.
+ * @param numberOfSpaces the number of spaces to print after the word.
+ */
 void printWordAndSpaces(char word[MAX_WORD_LENGTH], int numberOfSpaces) {
     while (*word) {
         printf("%c", *word);
@@ -93,8 +113,14 @@ void printWordAndSpaces(char word[MAX_WORD_LENGTH], int numberOfSpaces) {
     }
 }
 
-/*Given the tokens/words, number of words printed so far, number of words that needs to be printed on the next line
- * and line length, this function basically prints one line of the output.*/
+/**
+ * Prints one line of properly formatted output.
+ *
+ * @param tokens the 2d array containing the words.
+ * @param numberOfWordsProcessedSoFar the number of words in the sentence that have already been printed.
+ * @param numberOfWordsOnNextLine the number of words to be printed in the current line.
+ * @param lineLength the given length each line should be.
+ */
 void formatAndPrintCurrentLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH], int numberOfWordsProcessedSoFar,
         int numberOfWordsOnNextLine, int lineLength) {
 
@@ -124,7 +150,13 @@ void formatAndPrintCurrentLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH]
     }
 }
 
-/*This function formats words in a string array (tokens) on lines of length lineLength.*/
+/**
+ * Formats words in a string array (tokens) on lines of length lineLength.
+ *
+ * @param tokens the 2d array containing the words.
+ * @param totalNumberOfWords the total number of words in the array.
+ * @param lineLength the given length each line should be.
+ */
 void formatAndPrintWords(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH], int totalNumberOfWords, int lineLength) {
     int numberOfWordsProcessedSoFar = 0;
 
