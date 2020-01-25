@@ -36,11 +36,8 @@ int getCurrentTokenSize(char *inputString) {
  * This function would fill the tokens array to be like this:
  * tokens[0] = “Hi.”, tokens[1] = “How”, tokens[3] = “is” and so on.*/
 int tokenize(char *paragraph, char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH]) {
-
     int wordCount = 0;
-
     paragraph = moveToBeginningOfNextToken(paragraph);
-
     int currentWordSize = getCurrentTokenSize(paragraph);
 
     while(*paragraph) {
@@ -58,19 +55,37 @@ int tokenize(char *paragraph, char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH])
         paragraph = moveToBeginningOfNextToken(paragraph);
         currentWordSize = getCurrentTokenSize(paragraph);
     }
+    return wordCount + 1; // number of words in the tokens array
+}
+
+/*Given the array of tokens (words), number of words that we have processed so far,
+ * total number of words (size of the string array) and line length (from the formatAndPrintParagraph function):
+ * It returns the number of words that needs to be printed on the next line.*/
+int getNumberOfWordsForNextLine(char tokens[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH],
+        int numberOfWordsProcessedSoFar, int totalNumberOfWords, int lineLength) {
 
 
+}
 
-
-//    while (*startOfCurrentToken) {
-//        printf("%c.", *startOfCurrentToken);
-//        startOfCurrentToken++;
-//    }
-//    for (int i = 0; i <= 3; i++) {
-//        printf("%s", tokens[i]);
-//    }
-
-    return 0;
+/*This function simply prints a string followed by some number of spaces (no new line).*/
+void printWordAndSpaces(char word[MAX_WORD_LENGTH], int numberOfSpaces) {
+    while (*word) {
+        printf("%c", *word);
+        word++;
+    }
+    for (int spaceCounter = 0; spaceCounter < numberOfSpaces; spaceCounter++) {
+        printf("&"); // todo: change & to space char
+    }
 }
 
 
+/**
+ * Gets the input and prints the paragraph using helper functions.
+ *
+ * @param paragraph the sentence to be formatted.
+ * @param lineLength the number of characters per line.
+ * @return program code (0) to indicate successful execution.
+ */
+int formatAndPrintParagraph(char * paragraph, int lineLength) {
+
+}

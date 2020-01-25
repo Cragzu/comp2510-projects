@@ -16,5 +16,7 @@ int main() {
     char array[MAX_NUMBER_OF_WORDS][MAX_WORD_LENGTH];
     tokenize(beginningOfFirstToken, array);
 
+    printWordAndSpaces(originalString, 4);
+
     return 0;
 }
