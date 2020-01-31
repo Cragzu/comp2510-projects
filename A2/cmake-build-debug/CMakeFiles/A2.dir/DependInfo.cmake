@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A2/justify_string.c" "C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A2/cmake-build-debug/CMakeFiles/A2.dir/justify_string.c.obj"
+  "C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A2/A01166947_justify_string.c" "C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A2/cmake-build-debug/CMakeFiles/A2.dir/A01166947_justify_string.c.obj"
   "C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A2/main.c" "C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A2/cmake-build-debug/CMakeFiles/A2.dir/main.c.obj"
   )
 set(CMAKE_C_COMPILER_ID "GNU")

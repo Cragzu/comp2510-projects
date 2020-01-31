@@ -47,10 +47,10 @@ RM = "C:\Program Files\JetBrains\CLion 2019.3.2\bin\cmake\win\bin\cmake.exe" -E 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:\Users\cragz\OneDrive\Documents\CST\Term 2\COMP 2510\CLionProjects\A2"
+CMAKE_SOURCE_DIR = "C:\Users\cragz\OneDrive\Documents\CST\Term 2\COMP 2510\CLionProjects\lab04"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:\Users\cragz\OneDrive\Documents\CST\Term 2\COMP 2510\CLionProjects\A2\cmake-build-debug"
+CMAKE_BINARY_DIR = "C:\Users\cragz\OneDrive\Documents\CST\Term 2\COMP 2510\CLionProjects\lab04\cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -79,9 +79,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\cragz\OneDrive\Documents\CST\Term 2\COMP 2510\CLionProjects\A2\cmake-build-debug\CMakeFiles" "C:\Users\cragz\OneDrive\Documents\CST\Term 2\COMP 2510\CLionProjects\A2\cmake-build-debug\CMakeFiles\progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\cragz\OneDrive\Documents\CST\Term 2\COMP 2510\CLionProjects\lab04\cmake-build-debug\CMakeFiles" "C:\Users\cragz\OneDrive\Documents\CST\Term 2\COMP 2510\CLionProjects\lab04\cmake-build-debug\CMakeFiles\progress.marks"
 	$(MAKE) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\cragz\OneDrive\Documents\CST\Term 2\COMP 2510\CLionProjects\A2\cmake-build-debug\CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\cragz\OneDrive\Documents\CST\Term 2\COMP 2510\CLionProjects\lab04\cmake-build-debug\CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -110,44 +110,44 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named A2
+# Target rules for targets named lab04
 
 # Build rule for target.
-A2: cmake_check_build_system
-	$(MAKE) -f CMakeFiles\Makefile2 A2
-.PHONY : A2
+lab04: cmake_check_build_system
+	$(MAKE) -f CMakeFiles\Makefile2 lab04
+.PHONY : lab04
 
 # fast build rule for target.
-A2/fast:
-	$(MAKE) -f CMakeFiles\A2.dir\build.make CMakeFiles/A2.dir/build
-.PHONY : A2/fast
+lab04/fast:
+	$(MAKE) -f CMakeFiles\lab04.dir\build.make CMakeFiles/lab04.dir/build
+.PHONY : lab04/fast
 
-A01166947_justify_string.obj: A01166947_justify_string.c.obj
+A01166947_file_copy.obj: A01166947_file_copy.c.obj
 
-.PHONY : A01166947_justify_string.obj
+.PHONY : A01166947_file_copy.obj
 
 # target to build an object file
-A01166947_justify_string.c.obj:
-	$(MAKE) -f CMakeFiles\A2.dir\build.make CMakeFiles/A2.dir/A01166947_justify_string.c.obj
-.PHONY : A01166947_justify_string.c.obj
+A01166947_file_copy.c.obj:
+	$(MAKE) -f CMakeFiles\lab04.dir\build.make CMakeFiles/lab04.dir/A01166947_file_copy.c.obj
+.PHONY : A01166947_file_copy.c.obj
 
-A01166947_justify_string.i: A01166947_justify_string.c.i
+A01166947_file_copy.i: A01166947_file_copy.c.i
 
-.PHONY : A01166947_justify_string.i
+.PHONY : A01166947_file_copy.i
 
 # target to preprocess a source file
-A01166947_justify_string.c.i:
-	$(MAKE) -f CMakeFiles\A2.dir\build.make CMakeFiles/A2.dir/A01166947_justify_string.c.i
-.PHONY : A01166947_justify_string.c.i
+A01166947_file_copy.c.i:
+	$(MAKE) -f CMakeFiles\lab04.dir\build.make CMakeFiles/lab04.dir/A01166947_file_copy.c.i
+.PHONY : A01166947_file_copy.c.i
 
-A01166947_justify_string.s: A01166947_justify_string.c.s
+A01166947_file_copy.s: A01166947_file_copy.c.s
 
-.PHONY : A01166947_justify_string.s
+.PHONY : A01166947_file_copy.s
 
 # target to generate assembly for a file
-A01166947_justify_string.c.s:
-	$(MAKE) -f CMakeFiles\A2.dir\build.make CMakeFiles/A2.dir/A01166947_justify_string.c.s
-.PHONY : A01166947_justify_string.c.s
+A01166947_file_copy.c.s:
+	$(MAKE) -f CMakeFiles\lab04.dir\build.make CMakeFiles/lab04.dir/A01166947_file_copy.c.s
+.PHONY : A01166947_file_copy.c.s
 
 main.obj: main.c.obj
 
@@ -155,7 +155,7 @@ main.obj: main.c.obj
 
 # target to build an object file
 main.c.obj:
-	$(MAKE) -f CMakeFiles\A2.dir\build.make CMakeFiles/A2.dir/main.c.obj
+	$(MAKE) -f CMakeFiles\lab04.dir\build.make CMakeFiles/lab04.dir/main.c.obj
 .PHONY : main.c.obj
 
 main.i: main.c.i
@@ -164,7 +164,7 @@ main.i: main.c.i
 
 # target to preprocess a source file
 main.c.i:
-	$(MAKE) -f CMakeFiles\A2.dir\build.make CMakeFiles/A2.dir/main.c.i
+	$(MAKE) -f CMakeFiles\lab04.dir\build.make CMakeFiles/lab04.dir/main.c.i
 .PHONY : main.c.i
 
 main.s: main.c.s
@@ -173,7 +173,7 @@ main.s: main.c.s
 
 # target to generate assembly for a file
 main.c.s:
-	$(MAKE) -f CMakeFiles\A2.dir\build.make CMakeFiles/A2.dir/main.c.s
+	$(MAKE) -f CMakeFiles\lab04.dir\build.make CMakeFiles/lab04.dir/main.c.s
 .PHONY : main.c.s
 
 # Help Target
@@ -182,12 +182,12 @@ help:
 	@echo ... all (the default if no target is provided)
 	@echo ... clean
 	@echo ... depend
-	@echo ... A2
 	@echo ... edit_cache
+	@echo ... lab04
 	@echo ... rebuild_cache
-	@echo ... A01166947_justify_string.obj
-	@echo ... A01166947_justify_string.i
-	@echo ... A01166947_justify_string.s
+	@echo ... A01166947_file_copy.obj
+	@echo ... A01166947_file_copy.i
+	@echo ... A01166947_file_copy.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

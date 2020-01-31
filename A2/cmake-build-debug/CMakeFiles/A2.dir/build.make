@@ -69,29 +69,29 @@ CMakeFiles/A2.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/A2.dir/main.c.s"
 	C:\mingw-w64\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "C:\Users\cragz\OneDrive\Documents\CST\Term 2\COMP 2510\CLionProjects\A2\main.c" -o CMakeFiles\A2.dir\main.c.s
 
-CMakeFiles/A2.dir/justify_string.c.obj: CMakeFiles/A2.dir/flags.make
-CMakeFiles/A2.dir/justify_string.c.obj: ../justify_string.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\cragz\OneDrive\Documents\CST\Term 2\COMP 2510\CLionProjects\A2\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/A2.dir/justify_string.c.obj"
-	C:\mingw-w64\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\A2.dir\justify_string.c.obj   -c "C:\Users\cragz\OneDrive\Documents\CST\Term 2\COMP 2510\CLionProjects\A2\justify_string.c"
+CMakeFiles/A2.dir/A01166947_justify_string.c.obj: CMakeFiles/A2.dir/flags.make
+CMakeFiles/A2.dir/A01166947_justify_string.c.obj: ../A01166947_justify_string.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\cragz\OneDrive\Documents\CST\Term 2\COMP 2510\CLionProjects\A2\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/A2.dir/A01166947_justify_string.c.obj"
+	C:\mingw-w64\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\A2.dir\A01166947_justify_string.c.obj   -c "C:\Users\cragz\OneDrive\Documents\CST\Term 2\COMP 2510\CLionProjects\A2\A01166947_justify_string.c"
 
-CMakeFiles/A2.dir/justify_string.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/A2.dir/justify_string.c.i"
-	C:\mingw-w64\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "C:\Users\cragz\OneDrive\Documents\CST\Term 2\COMP 2510\CLionProjects\A2\justify_string.c" > CMakeFiles\A2.dir\justify_string.c.i
+CMakeFiles/A2.dir/A01166947_justify_string.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/A2.dir/A01166947_justify_string.c.i"
+	C:\mingw-w64\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "C:\Users\cragz\OneDrive\Documents\CST\Term 2\COMP 2510\CLionProjects\A2\A01166947_justify_string.c" > CMakeFiles\A2.dir\A01166947_justify_string.c.i
 
-CMakeFiles/A2.dir/justify_string.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/A2.dir/justify_string.c.s"
-	C:\mingw-w64\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "C:\Users\cragz\OneDrive\Documents\CST\Term 2\COMP 2510\CLionProjects\A2\justify_string.c" -o CMakeFiles\A2.dir\justify_string.c.s
+CMakeFiles/A2.dir/A01166947_justify_string.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/A2.dir/A01166947_justify_string.c.s"
+	C:\mingw-w64\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "C:\Users\cragz\OneDrive\Documents\CST\Term 2\COMP 2510\CLionProjects\A2\A01166947_justify_string.c" -o CMakeFiles\A2.dir\A01166947_justify_string.c.s
 
 # Object files for target A2
 A2_OBJECTS = \
 "CMakeFiles/A2.dir/main.c.obj" \
-"CMakeFiles/A2.dir/justify_string.c.obj"
+"CMakeFiles/A2.dir/A01166947_justify_string.c.obj"
 
 # External object files for target A2
 A2_EXTERNAL_OBJECTS =
 
 A2.exe: CMakeFiles/A2.dir/main.c.obj
-A2.exe: CMakeFiles/A2.dir/justify_string.c.obj
+A2.exe: CMakeFiles/A2.dir/A01166947_justify_string.c.obj
 A2.exe: CMakeFiles/A2.dir/build.make
 A2.exe: CMakeFiles/A2.dir/linklibs.rsp
 A2.exe: CMakeFiles/A2.dir/objects1.rsp

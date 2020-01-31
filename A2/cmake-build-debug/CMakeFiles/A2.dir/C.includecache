@@ -6,17 +6,17 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A2/justify_string.c
+C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A2/A01166947_justify_string.c
 stdio.h
 -
 string.h
 -
 
-C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A2/justify_string.h
+C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A2/A01166947_justify_string.h
 
 C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A2/main.c
 stdio.h
 -
-justify_string.h
-C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A2/justify_string.h
+A01166947_justify_string.h
+C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A2/A01166947_justify_string.h
 
