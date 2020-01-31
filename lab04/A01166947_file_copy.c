@@ -23,15 +23,29 @@ bool readFile(char *fileName, char content[MAX_LINE_SIZE]) {
     }
 
     fclose(file);
-    printf("%s", content);
+    printf("%s\n", content);
     return true;
+}
+
+void writeFile(char *fileName, char content[MAX_LINE_SIZE]) {
+    FILE *file = fopen(fileName, "w+");
+    if (file == NULL) {
+        printf("Could not open file.");
+        return;
+    }
+    char *firstName = "a";
+
+    fwrite(content, 1, strlen(content), file);
+
+    rewind(file);
+
+    fclose(file);
 }
 
 void fileCopy(char firstFileName[], char secondFileName[]) {
     char fileContent[MAX_LINE_SIZE];
 
     readFile(firstFileName, fileContent);
+    writeFile(secondFileName, fileContent);
 
-//    printf("%s\n", firstFileName);
-//    printf("%s\n", secondFileName);
 }
