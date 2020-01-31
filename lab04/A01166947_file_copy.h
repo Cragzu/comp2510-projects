@@ -2,5 +2,5 @@
 
 #ifndef LAB04_A01166947_FILE_COPY_H
 #define LAB04_A01166947_FILE_COPY_H
-
+void fileCopy(char firstFileName[], char secondFileName[]);
 #endif //LAB04_A01166947_FILE_COPY_H

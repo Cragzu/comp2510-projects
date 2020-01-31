@@ -4,4 +4,7 @@
 #include <stdbool.h>
 #include "A01166947_file_copy.h"
 
-void fileCopy(char[] )
+void fileCopy(char firstFileName[], char secondFileName[]) {
+    printf("%s\n", firstFileName);
+    printf("%s\n", secondFileName);
+}
