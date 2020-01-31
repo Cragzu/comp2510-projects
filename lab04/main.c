@@ -9,10 +9,16 @@
  * get command args, store as strings
  * copy all text in first file
  * write to second file
+ * handle errors
  *
  */
 
 int main(int argc, char** argv) {
+
+    if (argc < 2) { // error check for command-line args not given
+        printf("Error: two filenames must be given on the command line.");
+        return 1;
+    }
 
     fileCopy(argv[1], argv[2]);
 
