@@ -23,7 +23,6 @@ bool readFile(char *fileName, char content[MAX_LINE_SIZE]) {
     }
 
     fclose(file);
-    printf("%s\n", content);
     return true;
 }
 
@@ -33,12 +32,10 @@ void writeFile(char *fileName, char content[MAX_LINE_SIZE]) {
         printf("Could not open file.");
         return;
     }
-    char *firstName = "a";
 
     fwrite(content, 1, strlen(content), file);
 
     rewind(file);
-
     fclose(file);
 }
 
