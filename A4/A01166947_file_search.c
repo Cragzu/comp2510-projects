@@ -55,12 +55,13 @@ bool findWordInFile(char *fileName, char *content, char* word) {
         int wordPosition = findWordInLine(word, line);
         if (wordPosition != -1) {
             printf("Word found!\nLine: %d\nPosition: %d", lineCount, wordPosition);
+            return true;
         }
     }
     printf("Could not find that word in that file.");
 
     fclose(file);
-    return true;
+    return false;
 }
 
 void searchForWordInFile(char fileName[], char *wordToSearchFor) {
