@@ -20,29 +20,16 @@ bool readFile(char *fileName, char content[MAX_LINE_SIZE]) {
 
     while (fgets(line, MAX_LINE_SIZE, file) != NULL) {
         strcat(content, line);
+        printf("%s", line);
     }
 
     fclose(file);
     return true;
 }
 
-void writeFile(char *fileName, char content[MAX_LINE_SIZE]) {
-    FILE *file = fopen(fileName, "w+");
-    if (file == NULL) {
-        printf("Could not open file.");
-        return;
-    }
-
-    fwrite(content, 1, strlen(content), file);
-
-    rewind(file);
-    fclose(file);
-}
-
-void fileCopy(char firstFileName[], char secondFileName[]) {
+void searchForWordInFile(char fileName[], char wordToSearchFor[]) {
     char fileContent[MAX_LINE_SIZE];
 
-    readFile(firstFileName, fileContent);
-    writeFile(secondFileName, fileContent);
+    readFile(fileName, fileContent);
 
 }

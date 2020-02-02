@@ -2,5 +2,5 @@
 
 #ifndef A4_A01166947_FILE_SEARCH_H
 #define A4_A01166947_FILE_SEARCH_H
-void fileCopy(char firstFileName[], char secondFileName[]);
+void searchForWordInFile(char *firstFileName, char *secondFileName);
 #endif //A4_A01166947_FILE_SEARCH_H
