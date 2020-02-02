@@ -15,19 +15,20 @@
 
 void findWordInLine(char* word, char* line) {
     char* beginningOfWord = word;
+
     while (*line) {
-        if (word == line) {
+        if (*word == *line) {
             word++;
-            if (!word) {
-                printf("Word found!");
+            if (!*word) {
                 return;
             }
+
         } else {
             word = beginningOfWord;
         }
+
         line++;
     }
-    return;
 }
 
 bool readLineOfFile(char *fileName, char content[MAX_LINE_SIZE], int lineNumber) {
@@ -58,10 +59,16 @@ void searchForWordInFile(char fileName[], char *wordToSearchFor) {
     char fileContent[MAX_LINE_SIZE];
 
     readLineOfFile(fileName, fileContent, 2);
+    printf("%s\n", fileContent);
+
+
+    char *line = "hey to helium in hell";
+    char *word = "hell";
+    findWordInLine(word, line);
 
 
 
-    printf("%s", fileContent);
+
 
     //readFile(fileName, fileContent, wordToSearchFor);
 
