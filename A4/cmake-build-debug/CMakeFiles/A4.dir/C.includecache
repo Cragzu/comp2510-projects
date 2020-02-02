@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A4/A01166947_file_search.c
+stdio.h
+-
+stdbool.h
+-
+string.h
+-
+A01166947_file_search.h
+C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A4/A01166947_file_search.h
+
+C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A4/A01166947_file_search.h
+
+C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A4/main.c
+stdio.h
+-
+A01166947_file_search.h
+C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A4/A01166947_file_search.h
+
