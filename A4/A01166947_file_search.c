@@ -15,7 +15,7 @@
 
 int findWordInLine(char* word, char* line) {
     char* beginningOfWord = word;
-    int charCount = 0;
+    int charCount = 1;
     int positionOfWord = -1; /*default value for word not existing in line*/
 
     while (*line) {
@@ -37,12 +37,13 @@ int findWordInLine(char* word, char* line) {
     return positionOfWord;
 }
 
-bool readLineOfFile(char *fileName, char content[MAX_LINE_SIZE], int lineNumber) {
+bool findWordInFile(char *fileName, char *content, char* word) {
     FILE *file = fopen(fileName, "r");
     int lineCount = 0;
 
     if (file == NULL) {
         printf("Could not open file for reading.");
+        return false;
     }
 
     strcpy(content, "");
@@ -50,12 +51,13 @@ bool readLineOfFile(char *fileName, char content[MAX_LINE_SIZE], int lineNumber)
 
     while (fgets(line, MAX_LINE_SIZE, file) != NULL) {
         lineCount++;
-        if (lineCount == lineNumber) {
-            strcat(content, line);
-            printf("in function: %s", line);
-            return content;
+        strcat(content, line);
+        int wordPosition = findWordInLine(word, line);
+        if (wordPosition != -1) {
+            printf("Word found!\nLine: %d\nPosition: %d", lineCount, wordPosition);
         }
     }
+    printf("Could not find that word in that file.");
 
     fclose(file);
     return true;
@@ -64,18 +66,5 @@ bool readLineOfFile(char *fileName, char content[MAX_LINE_SIZE], int lineNumber)
 void searchForWordInFile(char fileName[], char *wordToSearchFor) {
     char fileContent[MAX_LINE_SIZE];
 
-    readLineOfFile(fileName, fileContent, 2);
-    printf("%s\n", fileContent);
-
-
-    char *line = "hey to helium in hehe";
-    char *word = "hehe";
-    findWordInLine(word, line);
-
-
-
-
-
-    //readFile(fileName, fileContent, wordToSearchFor);
-
+    findWordInFile(fileName, fileContent, wordToSearchFor);
 }
