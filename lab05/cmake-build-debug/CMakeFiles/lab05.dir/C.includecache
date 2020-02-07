@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/lab05/A01166947_convert_binary_file.h
+
+C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/lab05/main.c
+stdio.h
+-
+stdbool.h
+-
+A01166947_convert_binary_file.h
+C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/lab05/A01166947_convert_binary_file.h
+
