@@ -2,5 +2,5 @@
 
 #ifndef LAB05_A01166947_CONVERT_BINARY_FILE_H
 #define LAB05_A01166947_CONVERT_BINARY_FILE_H
-bool readFile(char *fileName, char content[]);
+void processFile(char *fileName);
 #endif //LAB05_A01166947_CONVERT_BINARY_FILE_H
