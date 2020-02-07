@@ -31,20 +31,15 @@ bool readFile(char *fileName, char content[MAX_COLUMNS]) {
     printf("Number of rows: %d\n", numOfRows);
     printf("Number of columns: %d\n", numOfColumns);
 
-    printf("Current array: ");
     int currentNum;
     int currentBinaryLine[numOfColumns];
-    for (int i = 0; i < numOfColumns; i++) {
-        fscanf(file, "%d", &currentNum);
-        currentBinaryLine[i] = currentNum;
+    for (int j = 0; j < numOfRows; j++) {
+        for (int i = 0; i < numOfColumns; i++) {
+            fscanf(file, "%d", &currentNum);
+            currentBinaryLine[i] = currentNum;
+        }
+        printf("Decimal value of line %d: %d\n", j, fromBinary(currentBinaryLine, numOfColumns));
     }
-
-    for (int i = 0; i < numOfColumns; i++) {
-        printf("%d ", currentBinaryLine[i]);
-    }
-    printf("\nDecimal value of first line: %d\n", fromBinary(currentBinaryLine, numOfColumns));
-
-
 
     fclose(file);
     return true;
