@@ -15,17 +15,14 @@ int fromBinary(int *binaryArray, int size) {
     return 2 * number + binaryArray[size - 1];
 }
 
-bool readFile(char *fileName, char content[MAX_COLUMNS]) {
+bool readFile(char *fileName) {
     FILE *file = fopen(fileName, "r");
 
     if (file == NULL) {
         printf("Could not open file for reading.");
         return false;
     }
-
-    strcpy(content, "");
-    char line[MAX_COLUMNS];
-
+    
     int numOfRows, numOfColumns;
     fscanf(file, "%d %d", &numOfRows, &numOfColumns);
     printf("Number of rows: %d\n", numOfRows);
@@ -33,12 +30,12 @@ bool readFile(char *fileName, char content[MAX_COLUMNS]) {
 
     int currentNum;
     int currentBinaryLine[numOfColumns];
-    for (int j = 0; j < numOfRows; j++) {
-        for (int i = 0; i < numOfColumns; i++) {
+    for (int row = 0; row < numOfRows; row++) {
+        for (int digit = 0; digit < numOfColumns; digit++) {
             fscanf(file, "%d", &currentNum);
-            currentBinaryLine[i] = currentNum;
+            currentBinaryLine[digit] = currentNum;
         }
-        printf("Decimal value of line %d: %d\n", j, fromBinary(currentBinaryLine, numOfColumns));
+        printf("Decimal value of line %d: %d\n", row+1, fromBinary(currentBinaryLine, numOfColumns));
     }
 
     fclose(file);
@@ -46,6 +43,5 @@ bool readFile(char *fileName, char content[MAX_COLUMNS]) {
 }
 
 void processFile(char *fileName) {
-    char fileContent[MAX_COLUMNS];
-    readFile(fileName, fileContent);
+    readFile(fileName);
 }
