@@ -31,9 +31,20 @@ bool readFile(char *fileName, char content[MAX_COLUMNS]) {
     printf("Number of rows: %d\n", numOfRows);
     printf("Number of columns: %d\n", numOfColumns);
 
-    int test;
-    fscanf(file, "%d", &test);
-    printf("first digit: %d\n", test);
+    printf("Current array: ");
+    int currentNum;
+    int currentBinaryLine[numOfColumns];
+    for (int i = 0; i < numOfColumns; i++) {
+        fscanf(file, "%d", &currentNum);
+        currentBinaryLine[i] = currentNum;
+    }
+
+    for (int i = 0; i < numOfColumns; i++) {
+        printf("%d ", currentBinaryLine[i]);
+    }
+    printf("\nDecimal value of first line: %d\n", fromBinary(currentBinaryLine, numOfColumns));
+
+
 
     fclose(file);
     return true;
@@ -42,8 +53,4 @@ bool readFile(char *fileName, char content[MAX_COLUMNS]) {
 void processFile(char *fileName) {
     char fileContent[MAX_COLUMNS];
     readFile(fileName, fileContent);
-
-    int binaryArray[3] = {1, 0, 1};
-    int binary = fromBinary(binaryArray, 3);
-    //printf("\n%d", binary);
 }
