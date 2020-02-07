@@ -26,10 +26,14 @@ bool readFile(char *fileName, char content[MAX_COLUMNS]) {
     strcpy(content, "");
     char line[MAX_COLUMNS];
 
-    while (fgets(line, MAX_COLUMNS, file) != NULL) {
-        strcat(content, line);
-        printf("%s", line);
-    }
+    int numOfRows, numOfColumns;
+    fscanf(file, "%d %d", &numOfRows, &numOfColumns);
+    printf("Number of rows: %d\n", numOfRows);
+    printf("Number of columns: %d\n", numOfColumns);
+
+    int test;
+    fscanf(file, "%d", &test);
+    printf("first digit: %d\n", test);
 
     fclose(file);
     return true;
@@ -38,4 +42,8 @@ bool readFile(char *fileName, char content[MAX_COLUMNS]) {
 void processFile(char *fileName) {
     char fileContent[MAX_COLUMNS];
     readFile(fileName, fileContent);
+
+    int binaryArray[3] = {1, 0, 1};
+    int binary = fromBinary(binaryArray, 3);
+    //printf("\n%d", binary);
 }
