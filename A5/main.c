@@ -39,7 +39,25 @@ bool checkIfTwoArraysAreAnagrams(int array1[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE]
     return true;
 }
 
-int main() {
+bool readFile(char *fileName) {
+    FILE *file = fopen(fileName, "r");
+
+    if (file == NULL) {
+        printf("Could not open file for reading.");
+        return false;
+    }
+
+    int numOfRows, numOfColumns;
+    fscanf(file, "%d %d", &numOfRows, &numOfColumns);
+    printf("Number of rows: %d\n", numOfRows);
+    printf("Number of columns: %d\n", numOfColumns);
+
+    fclose(file);
+    return true;
+}
+
+int main(int argc, char** argv) {
+    printf("%s\n", argv[1]);
     int arr1[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE] = {4, 3, 2, 1};
     int arr2[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE] = {1, 3, 3, 4};
 
@@ -56,6 +74,8 @@ int main() {
     printf("\n");
 
     checkIfTwoArraysAreAnagrams(arr1, arr2, 4);
+
+    readFile(argv[1]);
 
     return 0;
 }
