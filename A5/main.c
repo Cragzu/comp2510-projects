@@ -17,7 +17,19 @@ void sortArray(int array[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE]) {
         printf("%d ", array[i]);
     }
 
-    swap((int **) &array[0], (int **) &array[1]);
+    bool isSorted = false;
+
+    /*bubble sort*/
+    while (!isSorted) {
+        isSorted = true;
+        for (int i = 0; i < 4-1; i++) {
+            if (array[i] > array[i + 1]) {
+                isSorted = false;
+                swap((int **) &array[i], (int **) &array[i + 1]);
+            }
+        }
+    }
+
     printf("\n");
 
     for (int i = 0; i < 4; i++) {
