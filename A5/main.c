@@ -28,8 +28,8 @@ void sortArray(int array[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE], int arraySize) {
 
 bool checkIfTwoArraysAreAnagrams(int array1[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE],
         int array2[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE], int arraySize) {
-    sortArray(array1);
-    sortArray(array2);
+    sortArray(array1, arraySize);
+    sortArray(array2, arraySize);
 
     for (int i = 0; i < arraySize; i++) {
         if (array1[i] != array2[i]) {
