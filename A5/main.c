@@ -61,7 +61,20 @@ bool readFile(char *fileName) {
         }
     }
 
-    for (int arr = 0; arr < numOfRows; arr++) {
+    for (int arr = 0; arr < numOfRows; arr++) { /*todo: printing, remove later*/
+        for (int i = 0; i < numOfDigits; i++) {
+            printf("%d ", storedLineArrays[arr][i]);
+        }
+        printf("\n");
+    }
+
+    for (int arr = 0; arr < numOfRows; arr++) { /*todo: printing, remove later*/
+        sortArray(storedLineArrays[arr], numOfDigits);
+    }
+
+    printf("\n\n");
+
+    for (int arr = 0; arr < numOfRows; arr++) { /*todo: printing, remove later*/
         for (int i = 0; i < numOfDigits; i++) {
             printf("%d ", storedLineArrays[arr][i]);
         }
