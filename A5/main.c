@@ -53,12 +53,17 @@ bool readFile(char *fileName) {
     printf("Number of columns: %d\n", numOfDigits);
 
     int currentNum;
-    int currentBinaryLine[numOfDigits];
+    int storedLineArrays[numOfRows][numOfDigits]; /*2d array containing each line as an array*/
     for (int row = 0; row < numOfRows; row++) {
         for (int digit = 0; digit < numOfDigits; digit++) {
             fscanf(file, "%d", &currentNum);
-            printf("%d ", currentNum);
-            currentBinaryLine[digit] = currentNum;
+            storedLineArrays[row][digit] = currentNum;
+        }
+    }
+
+    for (int arr = 0; arr < numOfRows; arr++) {
+        for (int i = 0; i < numOfDigits; i++) {
+            printf("%d ", storedLineArrays[arr][i]);
         }
         printf("\n");
     }
@@ -70,6 +75,9 @@ bool readFile(char *fileName) {
 int main(int argc, char** argv) {
 
     readFile(argv[1]);
+    int doubleArray[2][4] = {{1, 2, 3, 4}, {4, 3, 2, 1}};
+
+
 
     return 0;
 }
