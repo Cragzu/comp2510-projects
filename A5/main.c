@@ -68,9 +68,20 @@ bool readFile(char *fileName) {
         printf("\n");
     }
 
-    for (int arr = 0; arr < numOfRows; arr++) { /*todo: printing, remove later*/
+    for (int arr = 0; arr < numOfRows; arr++) { /*sort all arrays*/
         sortArray(storedLineArrays[arr], numOfDigits);
-    }
+
+    for (int firstArrToCompare = 0; firstArrToCompare < numOfRows; firstArrToCompare++) { /*sort arrays*/
+        for (int secondArrToCompare = firstArrToCompare + 1; secondArrToCompare < numOfRows; secondArrToCompare++) {
+            if (checkIfTwoArraysAreAnagrams(storedLineArrays[firstArrToCompare], storedLineArrays[secondArrToCompare],
+                    numOfDigits)) {
+                printf("Match found on lines %d and %d", firstArrToCompare, secondArrToCompare);
+                return true;
+
+            }
+        }
+    }}
+
 
     printf("\n\n");
 
@@ -88,9 +99,6 @@ bool readFile(char *fileName) {
 int main(int argc, char** argv) {
 
     readFile(argv[1]);
-    int doubleArray[2][4] = {{1, 2, 3, 4}, {4, 3, 2, 1}};
-
-
 
     return 0;
 }
