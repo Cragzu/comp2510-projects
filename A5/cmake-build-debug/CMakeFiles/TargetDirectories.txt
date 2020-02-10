@@ -1,0 +1,3 @@
+C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A5/cmake-build-debug/CMakeFiles/A5.dir
+C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A5/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A5/cmake-build-debug/CMakeFiles/rebuild_cache.dir
