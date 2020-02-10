@@ -9,4 +9,6 @@
 C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/A5/main.c
 stdio.h
 -
+stdbool.h
+-
 

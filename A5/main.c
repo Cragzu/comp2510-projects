@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 
 #define MAX_NUMBER_OF_LINES 20
 #define MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE 50
@@ -12,21 +13,22 @@ void swap(int **p, int **q) {
 
 void sortArray(int array[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE]) {
 
-    for (int i = 0; i < MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE; i++) {
+    for (int i = 0; i < 4; i++) {
+        printf("%d ", array[i]);
+    }
+
+    swap((int **) &array[0], (int **) &array[1]);
+    printf("\n");
+
+    for (int i = 0; i < 4; i++) {
         printf("%d ", array[i]);
     }
 
 }
 
 int main() {
-    int arr[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE] = {1, 2, 3, 4};
+    int arr[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE] = {4, 3, 2, 1};
     sortArray(arr);
 
-    int firstNumber = 1;
-    int secondNumber = 2;
-    int *firstPointer = &firstNumber;
-    int *secondPointer = &secondNumber;
-    swap(&firstPointer, &secondPointer);
-    printf("\n*firstPointer = %d, *secondPointer = %d\n", *firstPointer, *secondPointer);
     return 0;
 }
