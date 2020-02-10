@@ -11,13 +11,13 @@ void swap(int **p, int **q) {
     *q = temp;
 }
 
-void sortArray(int array[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE]) {
+void sortArray(int array[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE], int arraySize) {
     bool isSorted = false;
 
     /*bubble sort*/
     while (!isSorted) {
         isSorted = true;
-        for (int i = 0; i < 4-1; i++) {
+        for (int i = 0; i < arraySize - 1; i++) {
             if (array[i] > array[i + 1]) {
                 isSorted = false;
                 swap((int **) &array[i], (int **) &array[i + 1]);
@@ -47,33 +47,27 @@ bool readFile(char *fileName) {
         return false;
     }
 
-    int numOfRows, numOfColumns;
-    fscanf(file, "%d %d", &numOfRows, &numOfColumns);
+    int numOfRows, numOfDigits;
+    fscanf(file, "%d %d", &numOfRows, &numOfDigits);
     printf("Number of rows: %d\n", numOfRows);
-    printf("Number of columns: %d\n", numOfColumns);
+    printf("Number of columns: %d\n", numOfDigits);
+
+    int currentNum;
+    int currentBinaryLine[numOfDigits];
+    for (int row = 0; row < numOfRows; row++) {
+        for (int digit = 0; digit < numOfDigits; digit++) {
+            fscanf(file, "%d", &currentNum);
+            printf("%d ", currentNum);
+            currentBinaryLine[digit] = currentNum;
+        }
+        printf("\n");
+    }
 
     fclose(file);
     return true;
 }
 
 int main(int argc, char** argv) {
-    printf("%s\n", argv[1]);
-    int arr1[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE] = {4, 3, 2, 1};
-    int arr2[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE] = {1, 3, 3, 4};
-
-    for (int i = 0; i < 4; i++) {
-        printf("%d ", arr1[i]);
-    }
-    printf("\n");
-
-    sortArray(arr1);
-
-    for (int i = 0; i < 4; i++) {
-        printf("%d ", arr1[i]);
-    }
-    printf("\n");
-
-    checkIfTwoArraysAreAnagrams(arr1, arr2, 4);
 
     readFile(argv[1]);
 
