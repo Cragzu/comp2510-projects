@@ -39,7 +39,7 @@ bool checkIfTwoArraysAreAnagrams(int array1[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE]
     return true;
 }
 
-bool readFile(char *fileName) {
+bool findAnagramsInFile(char *fileName) {
     FILE *file = fopen(fileName, "r");
 
     if (file == NULL) {
@@ -82,7 +82,7 @@ bool readFile(char *fileName) {
 
 int main(int argc, char** argv) {
 
-    readFile(argv[1]);
+    findAnagramsInFile(argv[1]);
 
     return 0;
 }
