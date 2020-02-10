@@ -47,10 +47,8 @@ bool readFile(char *fileName) {
         return false;
     }
 
-    int numOfRows, numOfDigits;
+    int numOfRows, numOfDigits; /*scan first line to get values*/
     fscanf(file, "%d %d", &numOfRows, &numOfDigits);
-    printf("Number of rows: %d\n", numOfRows);
-    printf("Number of columns: %d\n", numOfDigits);
 
     int currentNum;
     int storedLineArrays[numOfRows][numOfDigits]; /*2d array containing each line as an array*/
@@ -61,36 +59,22 @@ bool readFile(char *fileName) {
         }
     }
 
-    for (int arr = 0; arr < numOfRows; arr++) { /*todo: printing, remove later*/
-        for (int i = 0; i < numOfDigits; i++) {
-            printf("%d ", storedLineArrays[arr][i]);
-        }
-        printf("\n");
-    }
-
     for (int arr = 0; arr < numOfRows; arr++) { /*sort all arrays*/
         sortArray(storedLineArrays[arr], numOfDigits);
+    }
 
-    for (int firstArrToCompare = 0; firstArrToCompare < numOfRows; firstArrToCompare++) { /*sort arrays*/
-        for (int secondArrToCompare = firstArrToCompare + 1; secondArrToCompare < numOfRows; secondArrToCompare++) {
+    for (int firstArrToCompare = 1; firstArrToCompare <= numOfRows; firstArrToCompare++) { /*search for match*/
+        for (int secondArrToCompare = firstArrToCompare + 1; secondArrToCompare <= numOfRows; secondArrToCompare++) {
             if (checkIfTwoArraysAreAnagrams(storedLineArrays[firstArrToCompare], storedLineArrays[secondArrToCompare],
                     numOfDigits)) {
-                printf("Match found on lines %d and %d", firstArrToCompare, secondArrToCompare);
+                /*add 2 to print to account for starting at 0 and first line being number of rows & digits*/
+                printf("Match found on lines %d and %d.", firstArrToCompare + 2, secondArrToCompare + 2);
                 return true;
 
             }
         }
-    }}
-
-
-    printf("\n\n");
-
-    for (int arr = 0; arr < numOfRows; arr++) { /*todo: printing, remove later*/
-        for (int i = 0; i < numOfDigits; i++) {
-            printf("%d ", storedLineArrays[arr][i]);
-        }
-        printf("\n");
     }
+    printf("No anagrams found in this file.");
 
     fclose(file);
     return true;
