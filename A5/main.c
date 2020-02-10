@@ -12,11 +12,6 @@ void swap(int **p, int **q) {
 }
 
 void sortArray(int array[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE]) {
-
-    for (int i = 0; i < 4; i++) {
-        printf("%d ", array[i]);
-    }
-
     bool isSorted = false;
 
     /*bubble sort*/
@@ -29,18 +24,38 @@ void sortArray(int array[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE]) {
             }
         }
     }
+}
 
-    printf("\n");
+bool checkIfTwoArraysAreAnagrams(int array1[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE],
+        int array2[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE], int arraySize) {
+    sortArray(array1);
+    sortArray(array2);
 
-    for (int i = 0; i < 4; i++) {
-        printf("%d ", array[i]);
+    for (int i = 0; i < arraySize; i++) {
+        if (array1[i] != array2[i]) {
+            return false;
+        }
     }
-
+    return true;
 }
 
 int main() {
-    int arr[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE] = {4, 3, 2, 1};
-    sortArray(arr);
+    int arr1[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE] = {4, 3, 2, 1};
+    int arr2[MAX_NUMBER_OF_ELEMENTS_ON_EACH_LINE] = {1, 3, 3, 4};
+
+    for (int i = 0; i < 4; i++) {
+        printf("%d ", arr1[i]);
+    }
+    printf("\n");
+
+    sortArray(arr1);
+
+    for (int i = 0; i < 4; i++) {
+        printf("%d ", arr1[i]);
+    }
+    printf("\n");
+
+    checkIfTwoArraysAreAnagrams(arr1, arr2, 4);
 
     return 0;
 }
