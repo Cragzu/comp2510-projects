@@ -4,6 +4,11 @@
 
 #define MAX_LINE_SIZE 1000
 
+struct Student {
+    char *name;
+    double gpa;
+};
+
 bool readFile(char *fileName, char content[MAX_LINE_SIZE]) {
     FILE *file = fopen(fileName, "r");
 
@@ -27,6 +32,11 @@ bool readFile(char *fileName, char content[MAX_LINE_SIZE]) {
 int main(int argc, char** argv) {
     char content[MAX_LINE_SIZE];
 
-    readFile(argv[1], content);
+    struct Student chloe = {"Chloe", 4.0};
+    struct Student clint = {"Clint", 5.0};
+    printf("%s, %f\n", chloe.name, chloe.gpa);
+    printf("%s, %f", clint.name, clint.gpa);
+
+    //readFile(argv[1], content);
     return 0;
 }
