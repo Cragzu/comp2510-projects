@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include <string.h>
 #include <stdlib.h>
 
 #define INITIAL_ARRAY_SIZE 16
@@ -11,7 +10,7 @@ struct Student {
     double gpa;
 };
 
-bool readFile(char *fileName) {
+bool readFile(char *fileName, struct Student* studentInfo) {
     FILE *file = fopen(fileName, "r");
 
     if (file == NULL) {
@@ -19,23 +18,30 @@ bool readFile(char *fileName) {
         return false;
     }
 
-    char readName[MAX_NAME_SIZE];
-    double readGPA;
-    fscanf(file, "%s %lf", readName, &readGPA);
+    while (!feof(file)) {
+        char readName[MAX_NAME_SIZE];
+        double readGPA;
+        fscanf(file, "%s %lf", readName, &readGPA);
 
-    struct Student studentInfo = {readName, readGPA};
+        (*studentInfo).name = readName;
+        (*studentInfo).gpa = readGPA;
 
-    printf("Name: %s", studentInfo.name);
-    printf("\nGPA: %lf", studentInfo.gpa);
+        printf("Name: %s\n", studentInfo->name);
+        printf("GPA: %lf\n", studentInfo->gpa);
+
+        studentInfo++;
+    }
 
     fclose(file);
     return true;
 }
 
 int main(int argc, char** argv) {
+
+    // initialize array of structs
     struct Student* studentData = (struct Student *) malloc(INITIAL_ARRAY_SIZE * sizeof(struct Student));
 
-    readFile(argv[1]);
+    readFile(argv[1], studentData);
 
 //    struct Student chloe = {"Chloe", 4.0};
 //    struct Student clint = {"Clint", 5.0};
