@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define INITIAL_ARRAY_SIZE 16
 #define MAX_NAME_SIZE 32
@@ -10,7 +11,23 @@ struct Student {
     double gpa;
 };
 
-bool readFile(char *fileName, struct Student* studentInfo) {
+struct Student *resizeArrayIfNeeded(struct Student *array, int usedLength, int *arraySize) {
+    if (usedLength <= *arraySize) {
+        return array;
+    }
+    printf("Oops, need to resize!\n");
+    *arraySize *= 2;
+
+    struct Student* data = (struct Student *) realloc(array, *arraySize * (sizeof(double) + MAX_NAME_SIZE));
+
+    if (data == NULL) {
+        perror("resizing error message");
+        exit(1);
+    }
+    return data;
+}
+
+bool readFile(char *fileName, struct Student *studentInfo, int size, int *numOfElements) {
     FILE *file = fopen(fileName, "r");
 
     if (file == NULL) {
@@ -19,16 +36,21 @@ bool readFile(char *fileName, struct Student* studentInfo) {
     }
 
     while (!feof(file)) {
+        // scan line of file for name and GPA
         char readName[MAX_NAME_SIZE];
         double readGPA;
         fscanf(file, "%s %lf", readName, &readGPA);
 
-        (*studentInfo).name = readName;
-        (*studentInfo).gpa = readGPA;
+        // assign to struct
+        char *duplicatedName = strdup(readName);
 
-        printf("Name: %s\n", studentInfo->name);
-        printf("GPA: %lf\n", studentInfo->gpa);
+        (*numOfElements)++;
+        studentInfo = resizeArrayIfNeeded(studentInfo, *numOfElements, &size);
 
+        struct Student newStudent = {duplicatedName, readGPA};
+        *studentInfo = newStudent;
+
+        // increment pointer in array of structs
         studentInfo++;
     }
 
@@ -37,16 +59,23 @@ bool readFile(char *fileName, struct Student* studentInfo) {
 }
 
 int main(int argc, char** argv) {
+    int size = INITIAL_ARRAY_SIZE;
+    int numOfElements = 0;
 
     // initialize array of structs
-    struct Student* studentData = (struct Student *) malloc(INITIAL_ARRAY_SIZE * sizeof(struct Student));
+    struct Student* studentData = (struct Student *) malloc(size * (sizeof(double) + MAX_NAME_SIZE));
 
-    readFile(argv[1], studentData);
+    if (studentData == NULL) {
+        perror("main error message");
+        exit(1);
+    }
 
-//    struct Student chloe = {"Chloe", 4.0};
-//    struct Student clint = {"Clint", 5.0};
-//    printf("%s, %f\n", chloe.name, chloe.gpa);
-//    printf("%s, %f", clint.name, clint.gpa);
+    readFile(argv[1], studentData, size, &numOfElements);
+
+    for (int i = 0; i < numOfElements; i++) {
+        printf("Name: %s\n", studentData[i].name);
+        printf("GPA: %lf\n", studentData[i].gpa);
+    }
 
     return 0;
 }
