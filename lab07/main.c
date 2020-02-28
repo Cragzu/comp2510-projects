@@ -99,9 +99,12 @@ int main(int argc, char** argv) {
     // print all students with GPA above 3.9 in descending order
     for (int i = 0; i < numOfElements; i++) {
         if (studentData[i].gpa > 3.9) {
-            printf("%s - GPA %.2f\n", studentData[i].name, studentData[i].gpa);
+            printf("%s - GPA %.3f\n", studentData[i].name, studentData[i].gpa);
         }
     }
+
+    // free memory at end of program
+    free(studentData);
 
     return 0;
 }

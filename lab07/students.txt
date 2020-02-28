@@ -3,3 +3,10 @@ Jack 2.45
 John 3.9
 Jane 3.8
 Mike 3.125
+Jason 3.99
+Chloe 3.7
+Brian 3.48
+Justin 2.77
+Kevin 2.12
+Jas 4.2
+Clint 3.91
