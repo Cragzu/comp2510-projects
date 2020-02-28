@@ -11,6 +11,29 @@ struct Student {
     double gpa;
 };
 
+void swap(struct Student *p, struct Student *q) {
+    struct Student temp = *p;
+    *p = *q;
+    *q = temp;
+}
+
+void sortArrayByGPA(struct Student *array, int arraySize) {
+    bool isSorted = false;
+
+    /*bubble sort*/
+    while (!isSorted) {
+        isSorted = true;
+        for (int i = 0; i < arraySize; i++) {
+            printf("%f\n", array[i].gpa);
+            if (array[i].gpa < array[i + 1].gpa) {
+                printf("it's smaller!\n");
+                isSorted = false;
+                swap(&array[i], &array[i + 1]);
+            }
+        }
+    }
+}
+
 struct Student *resizeArrayIfNeeded(struct Student *array, int usedLength, int *arraySize) {
     if (usedLength <= *arraySize) {
         return array;
@@ -27,7 +50,7 @@ struct Student *resizeArrayIfNeeded(struct Student *array, int usedLength, int *
     return data;
 }
 
-bool readFile(char *fileName, struct Student *studentInfo, int size, int *numOfElements) {
+bool readFilePopulateStructArray(char *fileName, struct Student *studentInfo, int size, int *numOfElements) {
     FILE *file = fopen(fileName, "r");
 
     if (file == NULL) {
@@ -70,7 +93,8 @@ int main(int argc, char** argv) {
         exit(1);
     }
 
-    readFile(argv[1], studentData, size, &numOfElements);
+    readFilePopulateStructArray(argv[1], studentData, size, &numOfElements);
+    sortArrayByGPA(studentData, numOfElements);
 
     for (int i = 0; i < numOfElements; i++) {
         printf("Name: %s\n", studentData[i].name);
