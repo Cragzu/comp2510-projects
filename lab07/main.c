@@ -20,13 +20,11 @@ void swap(struct Student *p, struct Student *q) {
 void sortArrayByGPA(struct Student *array, int arraySize) {
     bool isSorted = false;
 
-    /*bubble sort*/
+    // bubble sort
     while (!isSorted) {
         isSorted = true;
         for (int i = 0; i < arraySize; i++) {
-            printf("%f\n", array[i].gpa);
             if (array[i].gpa < array[i + 1].gpa) {
-                printf("it's smaller!\n");
                 isSorted = false;
                 swap(&array[i], &array[i + 1]);
             }
@@ -67,9 +65,11 @@ bool readFilePopulateStructArray(char *fileName, struct Student *studentInfo, in
         // assign to struct
         char *duplicatedName = strdup(readName);
 
+        // add to number of elements and check if array needs to be resized
         (*numOfElements)++;
         studentInfo = resizeArrayIfNeeded(studentInfo, *numOfElements, &size);
 
+        // create struct and assign to array index
         struct Student newStudent = {duplicatedName, readGPA};
         *studentInfo = newStudent;
 
@@ -96,9 +96,11 @@ int main(int argc, char** argv) {
     readFilePopulateStructArray(argv[1], studentData, size, &numOfElements);
     sortArrayByGPA(studentData, numOfElements);
 
+    // print all students with GPA above 3.9 in descending order
     for (int i = 0; i < numOfElements; i++) {
-        printf("Name: %s\n", studentData[i].name);
-        printf("GPA: %lf\n", studentData[i].gpa);
+        if (studentData[i].gpa > 3.9) {
+            printf("%s - GPA %.2f\n", studentData[i].name, studentData[i].gpa);
+        }
     }
 
     return 0;
