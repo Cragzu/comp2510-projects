@@ -2,6 +2,10 @@
 #include <stdbool.h>
 #include <string.h>
 
+void *findNthElement(void *array, int n, size_t sizeOfEachElementInBytes) {
+    return (char *) array + (n - 1) * sizeOfEachElementInBytes;
+}
+
 // Generic swap function
 void swap(void *first, void *second, size_t numberOfBytes) {
     char temp[numberOfBytes];
@@ -17,21 +21,30 @@ bool intCompare(void *a, void *b) {
     return (firstValue > secondValue);
 }
 
+// Pointer comparison of doubles
+bool doubleCompare(void *a, void *b) {
+    double firstValue = *(double *) a;
+    double secondValue = *(double *) b;
+    return (firstValue > secondValue);
+}
+
 // Pointer comparison of chars
 bool charCompare(void *a, void *b) {
-    char *firstValue = *(char **) a;
-    char *secondValue = *(char **) b;
-    return strcmp(firstValue, secondValue) > 0;
+    char firstValue = *(char *) a;
+    char secondValue = *(char *) b;
+    return (firstValue > secondValue);
 }
 
 // Bubble sorts array of any data type
-void genericBubbleSort(void **array, size_t arrSize, size_t datatypeSize, bool (*compare)(void *, void *)) {
+void genericBubbleSort(void *array, size_t arrSize, size_t datatypeSize, bool (*compare)(void *, void *)) {
     while (true) {
         bool swapped = false;
         for (int i = 1; i < arrSize; i++) {
-            if (compare(&array[i - 1], &array[i])) {
+            void * currentElement = findNthElement(array, i, datatypeSize);
+            void * nextElement = findNthElement(array, i + 1, datatypeSize);
+            if (compare(currentElement, nextElement)) {
                 swapped = true;
-                swap(&array[i - 1], &array[i], datatypeSize);
+                swap(currentElement, nextElement, datatypeSize);
             }
         }
         if (!swapped) {
@@ -48,12 +61,19 @@ int main() {
         printf("A[%d] = %d\n", i, intArray[i]);
     }
 
+    // Test with doubles
+    double doubleArray[5] = {10.0, 1.0, 2.0, 5.0, 7.0};
+    genericBubbleSort((void *) doubleArray, 5, sizeof(double), doubleCompare);
+    for (int i = 0; i < 5; i++) {
+        printf("A[%d] = %f\n", i, doubleArray[i]);
+    }
+
     // Test with chars
-//    char charArray[5] = {'d', 'a', 'c', 'b', 'e'};
-//    genericBubbleSort((void *) charArray, 5, sizeof(char), charCompare);
-//    for (int i = 0; i < 5; i++) {
-//        printf("A[%d] = %c\n", i, charArray[i]);
-//    }
+    char charArray[5] = {'d', 'a', 'c', 'b', 'e'};
+    genericBubbleSort((void *) charArray, 5, sizeof(char), charCompare);
+    for (int i = 0; i < 5; i++) {
+        printf("A[%d] = %c\n", i, charArray[i]);
+    }
 
     return 0;
 }
