@@ -1,19 +1,29 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
-void integerSwap(int *first, int *second) {
-    int temp = *first;
-    *first = *second;
-    *second = temp;
+// Generic swap function
+void swap(void *first, void *second, size_t numberOfBytes) {
+    char temp[numberOfBytes];
+    memcpy(temp, first, numberOfBytes);
+    memcpy(first, second, numberOfBytes);
+    memcpy(second, temp, numberOfBytes);
 }
 
-void integerBubbleSort(int *array, size_t size) {
+// Pointer comparison of ints
+bool intCompare(void *a, void *b) {
+    int firstValue = *(int *) a;
+    int secondValue = *(int *) b;
+    return (firstValue > secondValue);
+}
+
+void genericBubbleSort(int *array, size_t arrSize, size_t datatypeSize) {
     while (true) {
         bool swapped = false;
-        for (int i = 1; i < size; i++) {
+        for (int i = 1; i < arrSize; i++) {
             if (array[i - 1] > array[i]) {
                 swapped = true;
-                integerSwap(&array[i - 1], &array[i]);
+                swap(&array[i - 1], &array[i], datatypeSize);
             }
         }
         if (!swapped) {
@@ -24,10 +34,9 @@ void integerBubbleSort(int *array, size_t size) {
 
 int main() {
     int array[5] = {10, 1, -2, 5, 7};
-    integerBubbleSort(array, 5);
+    genericBubbleSort(array, 5, sizeof(int));
     for (int i = 0; i < 5; i++) {
         printf("A[%d] = %d\n", i, array[i]);
     }
     return 0;
 }
-
