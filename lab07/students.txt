@@ -1,6 +1,12 @@
-Mary 4.0
 Jack 2.45
 John 3.9
 Jane 3.8
 Mike 3.125
 Jason 3.99
+Jane 3.8
+Mike 3.125
+Jason 3.99
+Jane 3.8
+Mike 3.125
+Jason 3.99
+Mary 4.0

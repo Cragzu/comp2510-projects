@@ -3,8 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define INITIAL_ARRAY_SIZE 16
+#define INITIAL_ARRAY_SIZE 2 // changed to test for realloc
 #define MAX_NAME_SIZE 32
+#define GPA_CUTOFF 3.9
 
 struct Student {
     char *name;
@@ -23,7 +24,7 @@ void sortArrayByGPA(struct Student *array, int arraySize) {
     // bubble sort
     while (!isSorted) {
         isSorted = true;
-        for (int i = 0; i < arraySize; i++) {
+        for (int i = 0; i < arraySize - 1; i++) { // logic error in bubble sort - needed to stop at 1 before last index
             if (array[i].gpa < array[i + 1].gpa) {
                 isSorted = false;
                 swap(&array[i], &array[i + 1]);
@@ -39,7 +40,8 @@ struct Student *resizeArrayIfNeeded(struct Student *array, int usedLength, int *
     printf("Oops, need to resize!\n");
     *arraySize *= 2;
 
-    struct Student* data = (struct Student *) realloc(array, *arraySize * (sizeof(double) + MAX_NAME_SIZE));
+    // error with sizeof - should just be struct Student instead of using double and adding the character offset
+    struct Student* data = (struct Student *) realloc(array, *arraySize * (sizeof(struct Student)));
 
     if (data == NULL) {
         perror("resizing error message");
@@ -48,12 +50,13 @@ struct Student *resizeArrayIfNeeded(struct Student *array, int usedLength, int *
     return data;
 }
 
-bool readFilePopulateStructArray(char *fileName, struct Student *studentInfo, int size, int *numOfElements) {
+// changed this function to return a struct Student* (array of student structs) to be reassigned in main
+struct Student* readFilePopulateStructArray(char *fileName, struct Student *studentInfo, int size, int *numOfElements) {
     FILE *file = fopen(fileName, "r");
 
     if (file == NULL) {
         printf("Could not open file for reading.");
-        return false;
+        return NULL;
     }
 
     while (!feof(file)) {
@@ -71,14 +74,11 @@ bool readFilePopulateStructArray(char *fileName, struct Student *studentInfo, in
 
         // create struct and assign to array index
         struct Student newStudent = {duplicatedName, readGPA};
-        *studentInfo = newStudent;
-
-        // increment pointer in array of structs
-        studentInfo++;
+        studentInfo[*numOfElements - 1] = newStudent;
     }
 
     fclose(file);
-    return true;
+    return studentInfo;
 }
 
 int main(int argc, char** argv) {
@@ -86,19 +86,20 @@ int main(int argc, char** argv) {
     int numOfElements = 0;
 
     // initialize array of structs
-    struct Student* studentData = (struct Student *) malloc(size * (sizeof(double) + MAX_NAME_SIZE));
+    struct Student* studentData = (struct Student *) malloc(size * (sizeof(struct Student)));
 
     if (studentData == NULL) {
         perror("main error message");
         exit(1);
     }
 
-    readFilePopulateStructArray(argv[1], studentData, size, &numOfElements);
+    // needed to reassign studentData to the return value instead of just calling the function
+    studentData = readFilePopulateStructArray(argv[1], studentData, size, &numOfElements);
     sortArrayByGPA(studentData, numOfElements);
 
-    // print all students with GPA above 3.9 in descending order
+    // print all students with GPA above the cutoff in descending order
     for (int i = 0; i < numOfElements; i++) {
-        if (studentData[i].gpa > 3.9) {
+        if (studentData[i].gpa > GPA_CUTOFF) {
             printf("%s - GPA %.3f\n", studentData[i].name, studentData[i].gpa);
         }
     }
