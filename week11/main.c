@@ -79,7 +79,7 @@ void addLast(Link *head, int data) {
     currentTail->next = newTail;
 }
 
-void removeTail(Link *head) {
+int removeTail(Link *head) {
     if (!*head) { // nothing in the list
         perror("Empty list was passed to removeTail function!");
         exit(1);
@@ -87,14 +87,32 @@ void removeTail(Link *head) {
     Link currentNode = *head;
     if (!currentNode->next) { // only one node in the list
         *head = NULL;
-        return;
+        int data = currentNode->data;
+        free(currentNode);
+        return data;
     }
 
     while (currentNode->next->next) { // check two nodes ahead
         currentNode = currentNode->next;
     }
+    Link oldTail = currentNode->next;
+    int oldTailData = oldTail->data;
+    free(oldTail);
     currentNode->next = NULL;
+    return oldTailData;
+}
 
+int pop(Link *head) {
+    if (!head) {
+        perror("Empty list passed to pop function!\n");
+        exit(1);
+    }
+
+    int data = (*head)->data;
+    Link oldHead = *head;
+    *head = (*head)->next;
+    free(oldHead);
+    return data;
 }
 
 int main() {
@@ -117,8 +135,12 @@ int main() {
     printLinkedList(node3); // 5 -> 4 -> 20 -> 10 -> 89
 
     printf("\nRemoving the tail...\n");
-    removeTail(&node3);
+    printf("Old tail's data = %d\n", removeTail(&node3));
     printLinkedList(node3); // 5 -> 4 -> 20 -> 10
+
+    printf("\nRemoving the head...\n");
+    printf("Old head's data = %d\n", pop(&node3));
+    printLinkedList(node3); // 4 -> 20 -> 10
 
     return 0;
 }
