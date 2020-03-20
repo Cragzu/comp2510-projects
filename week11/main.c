@@ -130,6 +130,11 @@ int deleteNodeAtPosition(Link *head, int position) {
 // Lab functions
 
 Link copyList(Link *head) {
+    if (!*head) {
+        perror("Empty list passed to copyList!");
+        exit(1);
+    }
+
     Link originalCurrent = *head;
     Link copiedHead = createNode((*head)->data); // copy the head
 
@@ -141,6 +146,11 @@ Link copyList(Link *head) {
 }
 
 Link copyListReverse(Link *head) {
+    if (!*head) {
+        perror("Empty list passed to copyListReverse!");
+        exit(1);
+    }
+
     Link originalCurrent = *head;
     Link copiedHead = createNode((*head)->data); // copy the head
 
