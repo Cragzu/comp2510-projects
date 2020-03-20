@@ -115,6 +115,32 @@ int pop(Link *head) {
     return data;
 }
 
+// Lecture activity functions
+
+void addElementAfterPosition(Link head, int data, int position) {
+    // todo
+}
+
+int deleteNodeAtPosition(Link *head, int position) {
+    // todo
+}
+
+// Lab functions
+
+Link copyList(Link *head) {
+    Link originalCurrent = *head;
+    Link copiedCurrent = createNode((*head)->data); // copy the head
+    Link copiedHead = copiedCurrent;
+
+    while (originalCurrent->next) {
+        originalCurrent = originalCurrent->next; // increment through original list
+
+        copiedCurrent->next = createNode(originalCurrent->data); // create new node with same data as original
+        copiedCurrent = copiedCurrent->next; // update current node in copy
+    }
+    return copiedHead;
+}
+
 int main() {
     Link node = createNode(10); // tail
     Link node2 = createNodeWithNextNode(20, node);
@@ -123,24 +149,28 @@ int main() {
     printLinkedList(node3); // 4 -> 20 -> 10
     printf("length = %d\n", getLinkedListLengthRecursively(node3)); // 3
 
-    printf("\nPushing new head...\n");
-    push(&node3, 5);
-    printLinkedList(node3); // 5 -> 4 -> 20 -> 10
-    printf("length = %d\n", getLinkedListLengthRecursively(node3)); // 4
+//    printf("\nPushing new head...\n");
+//    push(&node3, 5);
+//    printLinkedList(node3); // 5 -> 4 -> 20 -> 10
+//    printf("length = %d\n", getLinkedListLengthRecursively(node3)); // 4
+//
+//    printf("Tail data = %d\n", getTail(node3)->data); // 10
+//
+//    printf("\nAdding new tail...\n");
+//    addLast(&node3, 89);
+//    printLinkedList(node3); // 5 -> 4 -> 20 -> 10 -> 89
+//
+//    printf("\nRemoving the tail...\n");
+//    printf("Old tail's data = %d\n", removeTail(&node3));
+//    printLinkedList(node3); // 5 -> 4 -> 20 -> 10
+//
+//    printf("\nRemoving the head...\n");
+//    printf("Old head's data = %d\n", pop(&node3));
+//    printLinkedList(node3); // 4 -> 20 -> 10
 
-    printf("Tail data = %d\n", getTail(node3)->data); // 10
-
-    printf("\nAdding new tail...\n");
-    addLast(&node3, 89);
-    printLinkedList(node3); // 5 -> 4 -> 20 -> 10 -> 89
-
-    printf("\nRemoving the tail...\n");
-    printf("Old tail's data = %d\n", removeTail(&node3));
-    printLinkedList(node3); // 5 -> 4 -> 20 -> 10
-
-    printf("\nRemoving the head...\n");
-    printf("Old head's data = %d\n", pop(&node3));
-    printLinkedList(node3); // 4 -> 20 -> 10
+    printf("\nMaking a copy of the list...\n");
+    Link copied = copyList(&node3);
+    printLinkedList(copied);
 
     return 0;
 }
