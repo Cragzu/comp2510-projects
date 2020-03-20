@@ -32,15 +32,44 @@ Link createNode(int data) {
     return link;
 }
 
+Link createNodeWithNextNode(int data, Link next) {
+    Link link = createNode(data);
+    link->next = next;
+    return link;
+}
+
+int getLinkedListLength(Link head) {
+    int length = 0;
+    Link current = head;
+    while (current) {
+        current = current->next;
+        length++;
+    }
+    return length;
+}
+
+int getLinkedListLengthRecursively(Link head) {
+    if (!head) {
+        return 0;
+    }
+    return 1 + getLinkedListLengthRecursively(head->next);
+}
+
+void push(Link *head, int newData) {
+    Link newHead = createNodeWithNextNode(newData, *head);
+    *head = newHead;
+}
+
 int main() {
-    // 4 -> 20 -> 10
     Link node = createNode(10);
-    Link node2 = createNode(20);
-    Link node3 = createNode(4);
+    Link node2 = createNodeWithNextNode(20, node);
+    Link node3 = createNodeWithNextNode(4, node2); // head
 
-    node3->next = node2;
-    node2->next = node;
+    printLinkedList(node3); // 4 -> 20 -> 10
+    printf("length = %d\n", getLinkedListLengthRecursively(node3)); // 3
 
-    printLinkedList(node3);
+    push(&node3, 5);
+    printLinkedList(node3); // 5 -> 4 -> 20 -> 10
+    printf("length = %d\n", getLinkedListLengthRecursively(node3)); // 4
     return 0;
 }
