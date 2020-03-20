@@ -75,6 +75,7 @@ void addLast(Link *head, int data) {
     Link newTail = createNode(data); // need not have next node
     if (!*head) {
         *head = newTail;
+        return;
     }
     Link currentTail = getTail(*head);
     currentTail->next = newTail;
