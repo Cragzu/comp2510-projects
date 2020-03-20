@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define INITIAL_ARRAY_SIZE 2 // changed to test for realloc
+#define INITIAL_ARRAY_SIZE 2 // UPDATED: changed to test for realloc
 #define MAX_NAME_SIZE 32
 #define GPA_CUTOFF 3.9
 
@@ -24,7 +24,7 @@ void sortArrayByGPA(struct Student *array, int arraySize) {
     // bubble sort
     while (!isSorted) {
         isSorted = true;
-        for (int i = 0; i < arraySize - 1; i++) { // logic error in bubble sort - needed to stop at 1 before last index
+        for (int i = 0; i < arraySize - 1; i++) { // UPDATED: logic error in bubble sort, needed to stop at 1 before last index
             if (array[i].gpa < array[i + 1].gpa) {
                 isSorted = false;
                 swap(&array[i], &array[i + 1]);
@@ -40,7 +40,7 @@ struct Student *resizeArrayIfNeeded(struct Student *array, int usedLength, int *
     printf("Oops, need to resize!\n");
     *arraySize *= 2;
 
-    // error with sizeof - should just be struct Student instead of using double and adding the character offset
+    // UPDATED: error with sizeof, should just be struct Student instead of using double and adding the character offset
     struct Student* data = (struct Student *) realloc(array, *arraySize * (sizeof(struct Student)));
 
     if (data == NULL) {
@@ -50,7 +50,7 @@ struct Student *resizeArrayIfNeeded(struct Student *array, int usedLength, int *
     return data;
 }
 
-// changed this function to return a struct Student* (array of student structs) to be reassigned in main
+// UPDATED: changed this function to return a struct Student* (array of student structs) to be reassigned in main
 struct Student* readFilePopulateStructArray(char *fileName, struct Student *studentInfo, int size, int *numOfElements) {
     FILE *file = fopen(fileName, "r");
 
@@ -93,7 +93,7 @@ int main(int argc, char** argv) {
         exit(1);
     }
 
-    // needed to reassign studentData to the return value instead of just calling the function
+    //UPDATED:  needed to reassign studentData to the return value instead of just calling the function
     studentData = readFilePopulateStructArray(argv[1], studentData, size, &numOfElements);
     sortArrayByGPA(studentData, numOfElements);
 
