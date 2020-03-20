@@ -60,16 +60,43 @@ void push(Link *head, int newData) {
     *head = newHead;
 }
 
+Link getTail(Link head) {
+    if (!head) {
+        return NULL;
+    }
+    if (!head->next) {
+        return head;
+    }
+    return getTail(head->next);
+}
+
+void addLast(Link *head, int data) {
+    Link newTail = createNode(data); // need not have next node
+    if (!*head) {
+        *head = newTail;
+    }
+    Link currentTail = getTail(*head);
+    currentTail->next = newTail;
+}
+
 int main() {
-    Link node = createNode(10);
+    Link node = createNode(10); // tail
     Link node2 = createNodeWithNextNode(20, node);
-    Link node3 = createNodeWithNextNode(4, node2); // head
+    Link node3 = createNodeWithNextNode(4, node2); // initial head
 
     printLinkedList(node3); // 4 -> 20 -> 10
     printf("length = %d\n", getLinkedListLengthRecursively(node3)); // 3
 
+    printf("\nPushing new head...\n");
     push(&node3, 5);
     printLinkedList(node3); // 5 -> 4 -> 20 -> 10
     printf("length = %d\n", getLinkedListLengthRecursively(node3)); // 4
+
+    printf("Tail data = %d\n", getTail(node3)->data); // 10
+
+    printf("\nAdding new tail...\n");
+    addLast(&node3, 89);
+    printLinkedList(node3); // 5 -> 4 -> 20 -> 10
+
     return 0;
 }
