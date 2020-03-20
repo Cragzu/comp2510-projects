@@ -79,6 +79,24 @@ void addLast(Link *head, int data) {
     currentTail->next = newTail;
 }
 
+void removeTail(Link *head) {
+    if (!*head) { // nothing in the list
+        perror("Empty list was passed to removeTail function!");
+        exit(1);
+    }
+    Link currentNode = *head;
+    if (!currentNode->next) { // only one node in the list
+        *head = NULL;
+        return;
+    }
+
+    while (currentNode->next->next) { // check two nodes ahead
+        currentNode = currentNode->next;
+    }
+    currentNode->next = NULL;
+
+}
+
 int main() {
     Link node = createNode(10); // tail
     Link node2 = createNodeWithNextNode(20, node);
@@ -96,6 +114,10 @@ int main() {
 
     printf("\nAdding new tail...\n");
     addLast(&node3, 89);
+    printLinkedList(node3); // 5 -> 4 -> 20 -> 10 -> 89
+
+    printf("\nRemoving the tail...\n");
+    removeTail(&node3);
     printLinkedList(node3); // 5 -> 4 -> 20 -> 10
 
     return 0;
