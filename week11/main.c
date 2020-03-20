@@ -131,63 +131,62 @@ int deleteNodeAtPosition(Link *head, int position) {
 
 Link copyList(Link *head) {
     Link originalCurrent = *head;
-    Link copiedCurrent = createNode((*head)->data); // copy the head
-    Link copiedHead = copiedCurrent;
+    Link copiedHead = createNode((*head)->data); // copy the head
 
     while (originalCurrent->next) {
         originalCurrent = originalCurrent->next; // increment through original list
-
-        copiedCurrent->next = createNode(originalCurrent->data); // create new node with same data as original
-        copiedCurrent = copiedCurrent->next; // update current node in copy
+        addLast(&copiedHead, originalCurrent->data); // push new node to end of copied list
     }
     return copiedHead;
 }
 
 Link copyListReverse(Link *head) {
     Link originalCurrent = *head;
-    Link copiedCurrent = createNode((*head)->data); // copy the head
+    Link copiedHead = createNode((*head)->data); // copy the head
 
     while (originalCurrent->next) {
         originalCurrent = originalCurrent->next; // increment through original list
-        copiedCurrent = push(&copiedCurrent, originalCurrent->data); // push new node to front of copied list
+        copiedHead = push(&copiedHead, originalCurrent->data); // push new node to front of copied list
     }
-    return copiedCurrent;
+    return copiedHead;
 }
 
 int main() {
-    Link node = createNode(10); // tail
-    Link node2 = createNodeWithNextNode(20, node);
-    Link node3 = createNodeWithNextNode(4, node2); // initial head
+    Link head = NULL;
+    addLast(&head, 1);
+    addLast(&head, 2);
+    addLast(&head, 3);
+    addLast(&head, 4);
 
     printf("Initial List\n");
-    printLinkedList(node3); // 4 -> 20 -> 10
-    printf("length = %d\n", getLinkedListLengthRecursively(node3)); // 3
+    printLinkedList(head); // 4 -> 20 -> 10
+    printf("length = %d\n", getLinkedListLengthRecursively(head)); // 3
 
     printf("\nPushing new head...\n");
-    printf("New head data = %d\n", push(&node3, 5)->data);
-    printLinkedList(node3); // 5 -> 4 -> 20 -> 10
-    printf("length = %d\n", getLinkedListLengthRecursively(node3)); // 4
+    printf("New head data = %d\n", push(&head, 5)->data);
+    printLinkedList(head); // 5 -> 4 -> 20 -> 10
+    printf("length = %d\n", getLinkedListLengthRecursively(head)); // 4
 
-    printf("\nTail data = %d\n", getTail(node3)->data); // 10
+    printf("\nTail data = %d\n", getTail(head)->data); // 10
 
     printf("\nAdding new tail...\n");
-    addLast(&node3, 89);
-    printLinkedList(node3); // 5 -> 4 -> 20 -> 10 -> 89
+    addLast(&head, 89);
+    printLinkedList(head); // 5 -> 4 -> 20 -> 10 -> 89
 
     printf("\nRemoving the tail...\n");
-    printf("Old tail's data = %d\n", removeTail(&node3));
-    printLinkedList(node3); // 5 -> 4 -> 20 -> 10
+    printf("Old tail's data = %d\n", removeTail(&head));
+    printLinkedList(head); // 5 -> 4 -> 20 -> 10
 
     printf("\nRemoving the head...\n");
-    printf("Old head's data = %d\n", pop(&node3));
-    printLinkedList(node3); // 4 -> 20 -> 10
+    printf("Old head's data = %d\n", pop(&head));
+    printLinkedList(head); // 4 -> 20 -> 10
 
     printf("\nMaking a copy of the list...\n");
-    Link copied = copyList(&node3);
+    Link copied = copyList(&head);
     printLinkedList(copied);
 
     printf("\nMaking a reversed copy of the list...\n");
-    Link copiedReverse = copyListReverse(&node3);
+    Link copiedReverse = copyListReverse(&head);
     printLinkedList(copiedReverse);
 
     return 0;
