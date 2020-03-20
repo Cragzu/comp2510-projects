@@ -66,27 +66,24 @@ void addLast(Link *head, int data) {
 
 Link copyList(Link *head) {
     Link originalCurrent = *head;
-    Link copiedCurrent = createNode((*head)->data); // copy the head
-    Link copiedHead = copiedCurrent;
+    Link copiedHead = createNode((*head)->data); // copy the head
 
     while (originalCurrent->next) {
         originalCurrent = originalCurrent->next; // increment through original list
-
-        copiedCurrent->next = createNode(originalCurrent->data); // create new node with same data as original
-        copiedCurrent = copiedCurrent->next; // update current node in copy
+        addLast(&copiedHead, originalCurrent->data); // push new node to end of copied list
     }
     return copiedHead;
 }
 
 Link copyListReverse(Link *head) {
     Link originalCurrent = *head;
-    Link copiedCurrent = createNode((*head)->data); // copy the head
+    Link copiedHead = createNode((*head)->data); // copy the head
 
     while (originalCurrent->next) {
         originalCurrent = originalCurrent->next; // increment through original list
-        copiedCurrent = push(&copiedCurrent, originalCurrent->data); // push new node to front of copied list
+        copiedHead = push(&copiedHead, originalCurrent->data); // push new node to front of copied list
     }
-    return copiedCurrent;
+    return copiedHead;
 }
 
 int main() {
