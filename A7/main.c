@@ -61,14 +61,35 @@ int getLinkedListLength(Link head) {
     }
     return length;
 }
-//
-//int getLinkedListLengthRecursively(Link head) {
-//    if (!head) {
-//        return 0;
-//    }
-//    return 1 + getLinkedListLengthRecursively(head->next);
-//}
-//
+
+
+void mergeFreeBlocks(Link *head) {
+    // bubble algorithm
+    // setup while loop with allMerged = true, keep track of previous, current and next
+    // iterate through linked list, if both current and current->next are a hole, merge them, allMerged = false
+    // merging: create a new node with first's base and combined limit. set previous->next to new, new->next to current->next->next
+    // free current and next
+
+    Link currentNode = *head;
+    bool allMerged = false;
+    while (!allMerged) {
+        allMerged = true;
+        while (currentNode->next) {
+            if (currentNode->processID == 0 && currentNode->next->processID == 0) { // found two adjacent holes
+                Link newHole = createNodeWithNextNode(0, currentNode->base,
+                        (currentNode->limit + currentNode->next->limit), currentNode->next->next);
+
+
+                printf("Created new hole with base %d and limit %d\n", newHole->base, newHole->limit);
+                break; // todo: remove
+            }
+            currentNode = currentNode->next;
+        }
+    }
+
+}
+
+
 //Link push(Link *head, int newData) {
 //    Link newHead = createNodeWithNextNode(newData, *head);
 //    *head = newHead;
@@ -151,10 +172,16 @@ int main() {
     Link node2 = createNodeWithNextNode(2, 6, 1, node3);
     Link node1 = createNodeWithNextNode(1, 0, 6, node2);
 
-    // printf("Length = %d\n", getLinkedListLength(node1));
-
+    printf("Before merging blocks:\n");
     printMemory(node1);
     printf("\n");
+
+    mergeFreeBlocks(&node1);
+
+    printf("After merging blocks:\n");
+    printMemory(node1);
+    printf("\n");
+
 //    node1 = compaction(node1);
 //    printMemory(node1);
 //
