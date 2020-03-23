@@ -62,11 +62,6 @@ int getLinkedListLength(Link head) {
     return length;
 }
 
-Link push(Link *head, int processID, int base, int limit) {
-    Link newHead = createNodeWithNextNode(processID, base, limit, *head);
-    *head = newHead;
-    return newHead;
-}
 
 void pop(Link *head) {
     if (!head) {
@@ -85,21 +80,17 @@ void mergeFrontBlocks(Link *head) { // for holes at the start of the list
         return; // head is not a hole, nothing to do
     }
 
-//    while (currentNode->next == 0) {
-//        Link newHole = createNodeWithNextNode(0, currentNode->base,
-//                                              (currentNode->limit + currentNode->next->limit), currentNode->next->next);
-//    }
-//
-//    bool allMerged = false;
-//    if (currentNode->processID == 0 && currentNode->next->processID == 0) {
-//
-//        Link oldHead = *head;
-//        *head = newHole;
-//        currentNode = newHole->next;
-//        free(oldHead);
-//        free(oldHead->next);
-//
-//    }
+    while (currentNode->next->processID == 0) {
+        Link newHole = createNodeWithNextNode(0, currentNode->base,
+                (currentNode->limit + currentNode->next->limit), currentNode->next->next);
+        pop(head);
+        pop(head);
+        currentNode = newHole;
+        *head = newHole;
+        if (!currentNode->next) {
+            break;
+        }
+    }
 }
 
 void mergeMiddleBlocks(Link *head) { // for holes in the middle of the list
@@ -128,9 +119,19 @@ void mergeMiddleBlocks(Link *head) { // for holes in the middle of the list
     }
 }
 
+void mergeEndBlocks(Link *head) {
+    Link currentNode = *head;
+
+
+
+}
 
 void mergeFreeBlocks(Link *head) {
-    mergeMiddleBlocks(head);
+    mergeFrontBlocks(head);
+    if ((*head)->next) {
+        mergeMiddleBlocks(head);
+    }
+
 }
 
 
@@ -214,8 +215,8 @@ int main() {
     node7 = createNode(0, 26, 6);
     node6 = createNodeWithNextNode(3, 16, 10, node7);
     node5 = createNodeWithNextNode(0, 15, 1, node6);
-    node4 = createNodeWithNextNode(0, 11, 4, node5);
-    node3 = createNodeWithNextNode(2, 7, 4, node4);
+    node4 = createNodeWithNextNode(2, 11, 4, node5);
+    node3 = createNodeWithNextNode(0, 7, 4, node4);
     node2 = createNodeWithNextNode(0, 6, 1, node3);
     node1 = createNodeWithNextNode(0, 0, 6, node2);
 
@@ -237,15 +238,25 @@ int main() {
 //    freeLinkedList(node1);
 //    printf("-----\n");
 //
-//// Test case: All-hole list
-//    node7 = createNode(0, 26, 6);
-//    node6 = createNodeWithNextNode(0, 16, 10, node7);
-//    node5 = createNodeWithNextNode(0, 15, 1, node6);
-//    node4 = createNodeWithNextNode(0, 11, 4, node5);
-//    node3 = createNodeWithNextNode(0, 7, 4, node4);
-//    node2 = createNodeWithNextNode(0, 6, 1, node3);
-//    node1 = createNodeWithNextNode(0, 0, 6, node2);
-//
+// Test case: All-hole list
+    node7 = createNode(0, 26, 6);
+    node6 = createNodeWithNextNode(0, 16, 10, node7);
+    node5 = createNodeWithNextNode(0, 15, 1, node6);
+    node4 = createNodeWithNextNode(0, 11, 4, node5);
+    node3 = createNodeWithNextNode(0, 7, 4, node4);
+    node2 = createNodeWithNextNode(0, 6, 1, node3);
+    node1 = createNodeWithNextNode(0, 0, 6, node2);
+
+    printf("Before merging blocks:\n");
+    printMemory(node1);
+    printf("\n");
+
+    mergeFreeBlocks(&node1);
+
+    printf("After merging blocks:\n");
+    printMemory(node1);
+    printf("\n");
+
 //    printMemory(node1);
 //    printf("\n");
 //    node1 = compaction(node1);
