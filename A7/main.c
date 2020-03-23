@@ -62,6 +62,24 @@ int getLinkedListLength(Link head) {
     return length;
 }
 
+void addElementAfterPosition(int position, Link head, int processID, int base, int limit) {
+    if (!head || position < 0 || position >= getLinkedListLength(head)) {
+        perror("Invalid input to addElementAfterPosition!");
+        exit(1);
+    }
+    int currentPos = 0;
+    Link current = head;
+    while (current) {
+        if (currentPos == position) {
+            Link newNode = createNodeWithNextNode(processID, base, limit, current->next);
+            current->next = newNode;
+            return;
+        }
+        current = current->next;
+        currentPos++;
+    }
+}
+
 
 void mergeFreeBlocks(Link *head) {
     // bubble algorithm
@@ -154,10 +172,6 @@ void mergeFreeBlocks(Link *head) {
 //
 //// Lecture activity functions
 //
-//void addElementAfterPosition(Link head, int data, int position) {
-//    // todo
-//}
-//
 //int deleteNodeAtPosition(Link *head, int position) {
 //    // todo
 //}
@@ -176,11 +190,15 @@ int main() {
     printMemory(node1);
     printf("\n");
 
-    mergeFreeBlocks(&node1);
-
-    printf("After merging blocks:\n");
+    addElementAfterPosition(6, node1, 4, 23, 4);
+    printf("After adding element:\n");
     printMemory(node1);
-    printf("\n");
+
+//    mergeFreeBlocks(&node1);
+//
+//    printf("After merging blocks:\n");
+//    printMemory(node1);
+//    printf("\n");
 
 //    node1 = compaction(node1);
 //    printMemory(node1);
