@@ -62,9 +62,47 @@ int getLinkedListLength(Link head) {
     return length;
 }
 
+Link push(Link *head, int processID, int base, int limit) {
+    Link newHead = createNodeWithNextNode(processID, base, limit, *head);
+    *head = newHead;
+    return newHead;
+}
 
-void mergeFreeBlocks(Link *head) {
+void pop(Link *head) {
+    if (!head) {
+        perror("Empty list passed to pop function!\n");
+        exit(1);
+    }
 
+    Link oldHead = *head;
+    *head = (*head)->next;
+    free(oldHead);
+}
+
+void mergeFrontBlocks(Link *head) { // for holes at the start of the list
+    Link currentNode = *head;
+    if (currentNode->processID != 0) {
+        return; // head is not a hole, nothing to do
+    }
+
+//    while (currentNode->next == 0) {
+//        Link newHole = createNodeWithNextNode(0, currentNode->base,
+//                                              (currentNode->limit + currentNode->next->limit), currentNode->next->next);
+//    }
+//
+//    bool allMerged = false;
+//    if (currentNode->processID == 0 && currentNode->next->processID == 0) {
+//
+//        Link oldHead = *head;
+//        *head = newHole;
+//        currentNode = newHole->next;
+//        free(oldHead);
+//        free(oldHead->next);
+//
+//    }
+}
+
+void mergeMiddleBlocks(Link *head) { // for holes in the middle of the list
     Link currentNode = *head;
     bool allMerged = false;
     while (!allMerged) {
@@ -75,12 +113,11 @@ void mergeFreeBlocks(Link *head) {
             Link threeAhead = currentNode->next->next->next;
             if (oneAhead->processID == 0 && twoAhead->processID == 0) { // found two adjacent holes
                 Link newHole = createNodeWithNextNode(0, oneAhead->base,
-                        (oneAhead->limit + twoAhead->limit), threeAhead);
+                                                      (oneAhead->limit + twoAhead->limit), threeAhead);
 
                 currentNode->next = newHole;
                 free(oneAhead);
                 free(twoAhead);
-
 
                 printf("Created new hole with base %d and limit %d\n", newHole->base, newHole->limit);
                 allMerged = false;
@@ -89,16 +126,14 @@ void mergeFreeBlocks(Link *head) {
         }
         currentNode = *head;
     }
-
 }
 
 
-//Link push(Link *head, int newData) {
-//    Link newHead = createNodeWithNextNode(newData, *head);
-//    *head = newHead;
-//    return newHead;
-//}
-//
+void mergeFreeBlocks(Link *head) {
+    mergeMiddleBlocks(head);
+}
+
+
 //Link getTail(Link head) {
 //    if (!head) {
 //        return NULL;
@@ -142,18 +177,6 @@ void mergeFreeBlocks(Link *head) {
 //    return oldTailData;
 //}
 //
-//int pop(Link *head) {
-//    if (!head) {
-//        perror("Empty list passed to pop function!\n");
-//        exit(1);
-//    }
-//
-//    int data = (*head)->data;
-//    Link oldHead = *head;
-//    *head = (*head)->next;
-//    free(oldHead);
-//    return data;
-//}
 //
 //// Lecture activity functions
 //
@@ -187,15 +210,25 @@ int main() {
 //    freeLinkedList(node1);
 //    printf("-----\n");
 //
-//// Test case: Mixed list, starts with hole
-//    node7 = createNode(0, 26, 6);
-//    node6 = createNodeWithNextNode(3, 16, 10, node7);
-//    node5 = createNodeWithNextNode(0, 15, 1, node6);
-//    node4 = createNodeWithNextNode(0, 11, 4, node5);
-//    node3 = createNodeWithNextNode(0, 7, 4, node4);
-//    node2 = createNodeWithNextNode(2, 6, 1, node3);
-//    node1 = createNodeWithNextNode(0, 0, 6, node2);
-//
+// Test case: Mixed list, starts with hole
+    node7 = createNode(0, 26, 6);
+    node6 = createNodeWithNextNode(3, 16, 10, node7);
+    node5 = createNodeWithNextNode(0, 15, 1, node6);
+    node4 = createNodeWithNextNode(0, 11, 4, node5);
+    node3 = createNodeWithNextNode(2, 7, 4, node4);
+    node2 = createNodeWithNextNode(0, 6, 1, node3);
+    node1 = createNodeWithNextNode(0, 0, 6, node2);
+
+    printf("Before merging blocks:\n");
+    printMemory(node1);
+    printf("\n");
+
+    mergeFreeBlocks(&node1);
+
+    printf("After merging blocks:\n");
+    printMemory(node1);
+    printf("\n");
+
 //    printMemory(node1);
 //    printf("\n");
 //    node1 = compaction(node1);
