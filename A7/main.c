@@ -62,7 +62,6 @@ int getLinkedListLength(Link head) {
     return length;
 }
 
-
 void pop(Link *head) {
     if (!head) {
         perror("Empty list passed to pop function!\n");
@@ -110,7 +109,6 @@ void mergeMiddleBlocks(Link *head) { // for holes in the middle of the list
                 free(oneAhead);
                 free(twoAhead);
 
-                printf("Created new hole with base %d and limit %d\n", newHole->base, newHole->limit);
                 allMerged = false;
             }
             currentNode = currentNode->next;
@@ -119,21 +117,12 @@ void mergeMiddleBlocks(Link *head) { // for holes in the middle of the list
     }
 }
 
-void mergeEndBlocks(Link *head) {
-    Link currentNode = *head;
-
-
-
-}
-
 void mergeFreeBlocks(Link *head) {
     mergeFrontBlocks(head);
     if ((*head)->next) {
         mergeMiddleBlocks(head);
     }
-
 }
-
 
 //Link getTail(Link head) {
 //    if (!head) {
@@ -206,11 +195,9 @@ int main() {
     printf("\n");
 
 //    node1 = compaction(node1);
-//    printMemory(node1);
-//
-//    freeLinkedList(node1);
-//    printf("-----\n");
-//
+
+    printf("-----\n");
+
 // Test case: Mixed list, starts with hole
     node7 = createNode(0, 26, 6);
     node6 = createNodeWithNextNode(3, 16, 10, node7);
@@ -230,14 +217,10 @@ int main() {
     printMemory(node1);
     printf("\n");
 
-//    printMemory(node1);
-//    printf("\n");
 //    node1 = compaction(node1);
-//    printMemory(node1);
-//
-//    freeLinkedList(node1);
-//    printf("-----\n");
-//
+
+    printf("-----\n");
+
 // Test case: All-hole list
     node7 = createNode(0, 26, 6);
     node6 = createNodeWithNextNode(0, 16, 10, node7);
@@ -257,29 +240,31 @@ int main() {
     printMemory(node1);
     printf("\n");
 
-//    printMemory(node1);
-//    printf("\n");
+
 //    node1 = compaction(node1);
-//    printMemory(node1);
-//
-//    freeLinkedList(node1);
-//    printf("-----\n");
-//
-//// Test case: All-procedure list
-//    node7 = createNode(7, 26, 6);
-//    node6 = createNodeWithNextNode(6, 16, 10, node7);
-//    node5 = createNodeWithNextNode(5, 15, 1, node6);
-//    node4 = createNodeWithNextNode(4, 11, 4, node5);
-//    node3 = createNodeWithNextNode(3, 7, 4, node4);
-//    node2 = createNodeWithNextNode(2, 6, 1, node3);
-//    node1 = createNodeWithNextNode(1, 0, 6, node2);
-//
-//    printMemory(node1);
-//    printf("\n");
+
+    printf("-----\n");
+
+// Test case: All-procedure list
+    node7 = createNode(7, 26, 6);
+    node6 = createNodeWithNextNode(6, 16, 10, node7);
+    node5 = createNodeWithNextNode(5, 15, 1, node6);
+    node4 = createNodeWithNextNode(4, 11, 4, node5);
+    node3 = createNodeWithNextNode(3, 7, 4, node4);
+    node2 = createNodeWithNextNode(2, 6, 1, node3);
+    node1 = createNodeWithNextNode(1, 0, 6, node2);
+
+    printf("Before merging blocks:\n");
+    printMemory(node1);
+    printf("\n");
+
+    mergeFreeBlocks(&node1);
+
+    printf("After merging blocks:\n");
+    printMemory(node1);
+    printf("\n");
+
 //    node1 = compaction(node1);
-//    printMemory(node1);
-//
-//    freeLinkedList(node1);
 
     return 0;
 }
