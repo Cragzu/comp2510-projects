@@ -92,10 +92,17 @@ void mergeFreeBlocks(Link *head) {
     bool allMerged = false;
     while (!allMerged) {
         allMerged = true;
-        while (currentNode->next) {
-            if (currentNode->processID == 0 && currentNode->next->processID == 0) { // found two adjacent holes
-                Link newHole = createNodeWithNextNode(0, currentNode->base,
-                        (currentNode->limit + currentNode->next->limit), currentNode->next->next);
+        while (currentNode->next->next->next) {
+            Link oneAhead = currentNode->next;
+            Link twoAhead = currentNode->next->next;
+            Link threeAhead = currentNode->next->next->next;
+            if (currentNode->next->processID == 0 && currentNode->next->next->processID == 0) { // found two adjacent holes
+                Link newHole = createNodeWithNextNode(0, currentNode->next->base,
+                        (currentNode->next->limit + currentNode->next->next->limit), currentNode->next->next->next);
+
+                currentNode->next = newHole;
+                free(oneAhead);
+                free(twoAhead);
 
 
                 printf("Created new hole with base %d and limit %d\n", newHole->base, newHole->limit);
@@ -190,15 +197,11 @@ int main() {
     printMemory(node1);
     printf("\n");
 
-    addElementAfterPosition(6, node1, 4, 23, 4);
-    printf("After adding element:\n");
-    printMemory(node1);
+    mergeFreeBlocks(&node1);
 
-//    mergeFreeBlocks(&node1);
-//
-//    printf("After merging blocks:\n");
-//    printMemory(node1);
-//    printf("\n");
+    printf("After merging blocks:\n");
+    printMemory(node1);
+    printf("\n");
 
 //    node1 = compaction(node1);
 //    printMemory(node1);
