@@ -62,31 +62,8 @@ int getLinkedListLength(Link head) {
     return length;
 }
 
-void addElementAfterPosition(int position, Link head, int processID, int base, int limit) {
-    if (!head || position < 0 || position >= getLinkedListLength(head)) {
-        perror("Invalid input to addElementAfterPosition!");
-        exit(1);
-    }
-    int currentPos = 0;
-    Link current = head;
-    while (current) {
-        if (currentPos == position) {
-            Link newNode = createNodeWithNextNode(processID, base, limit, current->next);
-            current->next = newNode;
-            return;
-        }
-        current = current->next;
-        currentPos++;
-    }
-}
-
 
 void mergeFreeBlocks(Link *head) {
-    // bubble algorithm
-    // setup while loop with allMerged = true, keep track of previous, current and next
-    // iterate through linked list, if both current and current->next are a hole, merge them, allMerged = false
-    // merging: create a new node with first's base and combined limit. set previous->next to new, new->next to current->next->next
-    // free current and next
 
     Link currentNode = *head;
     bool allMerged = false;
@@ -96,9 +73,9 @@ void mergeFreeBlocks(Link *head) {
             Link oneAhead = currentNode->next;
             Link twoAhead = currentNode->next->next;
             Link threeAhead = currentNode->next->next->next;
-            if (currentNode->next->processID == 0 && currentNode->next->next->processID == 0) { // found two adjacent holes
-                Link newHole = createNodeWithNextNode(0, currentNode->next->base,
-                        (currentNode->next->limit + currentNode->next->next->limit), currentNode->next->next->next);
+            if (oneAhead->processID == 0 && twoAhead->processID == 0) { // found two adjacent holes
+                Link newHole = createNodeWithNextNode(0, oneAhead->base,
+                        (oneAhead->limit + twoAhead->limit), threeAhead);
 
                 currentNode->next = newHole;
                 free(oneAhead);
@@ -106,10 +83,11 @@ void mergeFreeBlocks(Link *head) {
 
 
                 printf("Created new hole with base %d and limit %d\n", newHole->base, newHole->limit);
-                break; // todo: remove
+                allMerged = false;
             }
             currentNode = currentNode->next;
         }
+        currentNode = *head;
     }
 
 }
