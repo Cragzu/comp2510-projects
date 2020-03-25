@@ -73,55 +73,35 @@ void pop(Link *head) {
     free(oldHead);
 }
 
-void mergeFrontBlocks(Link *head) { // for holes at the start of the list
-    Link currentNode = *head;
-    if (currentNode->processID != 0) {
-        return; // head is not a hole, nothing to do
-    }
+//For mergeFreeBlocks, you only need to merge when the currentNode and nextNode are both holes. In all other cases you can traverse the linked list normally.
+//It's helpful to have a helper function that you can call to merge 2 nodes for both functions.
 
-    while (currentNode->next->processID == 0) {
-        Link newHole = createNodeWithNextNode(0, currentNode->base,
-                (currentNode->limit + currentNode->next->limit), currentNode->next->next);
-        pop(head);
-        pop(head);
-        currentNode = newHole;
-        *head = newHole;
-        if (!currentNode->next) {
-            break;
-        }
-    }
-}
-
-void mergeMiddleBlocks(Link *head) { // for holes in the middle of the list
-    Link currentNode = *head;
-    bool allMerged = false;
-    while (!allMerged) {
-        allMerged = true;
-        while (currentNode->next->next->next) {
-            Link oneAhead = currentNode->next;
-            Link twoAhead = currentNode->next->next;
-            Link threeAhead = currentNode->next->next->next;
-            if (oneAhead->processID == 0 && twoAhead->processID == 0) { // found two adjacent holes
-                Link newHole = createNodeWithNextNode(0, oneAhead->base,
-                                                      (oneAhead->limit + twoAhead->limit), threeAhead);
-
-                currentNode->next = newHole;
-                free(oneAhead);
-                free(twoAhead);
-
-                allMerged = false;
-            }
-            currentNode = currentNode->next;
-        }
-        currentNode = *head;
-    }
+void mergeNodeWithNextNode(Link *firstNode) {
+    (*firstNode)->limit = (*firstNode)->limit + (*firstNode)->next->limit;
+    Link nodeToFree = (*firstNode)->next;
+    (*firstNode)->next = (*firstNode)->next->next;
+    free(nodeToFree);
 }
 
 void mergeFreeBlocks(Link *head) {
-    mergeFrontBlocks(head);
-    if ((*head)->next) {
-        mergeMiddleBlocks(head);
+    Link currentNode = *head;
+    while (currentNode->next) {
+        if (currentNode->processID == 0 && currentNode->next->processID == 0) {
+            mergeNodeWithNextNode(&currentNode);
+        } else {
+            currentNode = currentNode->next;
+        }
     }
+}
+
+//For compaction, I recognized that there were 3 cases while traversing through the linked list:
+//1. currentNode is a process and nextNode is a process / hole = you can just go to the next node. The 2 nodes are already compact.
+//2. currentNode is a hole and nextNode is also a hole = you can merge the holes, but do not advance to the next one (remember to free the merged node).
+//3. currentNode is a hole and nextNode is a process = you can swap currentNode and nextNode.
+//The merging of holes and swapping them with processes will "bubble up" the hole to the end.
+
+void compaction(Link *head) {
+
 }
 
 //Link getTail(Link head) {
