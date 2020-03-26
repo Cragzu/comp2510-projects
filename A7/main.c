@@ -101,7 +101,22 @@ void mergeFreeBlocks(Link *head) {
 //The merging of holes and swapping them with processes will "bubble up" the hole to the end.
 
 void compaction(Link *head) {
+    Link currentNode = *head;
+    while (currentNode->next) {
+        if (currentNode->processID == 0) {
 
+            if (currentNode->next->processID == 0) {
+                mergeNodeWithNextNode(&currentNode);
+            } else {
+                // swap nodes
+                currentNode = currentNode->next;
+            }
+        }
+
+        else {
+            currentNode = currentNode->next;
+        }
+    }
 }
 
 //Link getTail(Link head) {
