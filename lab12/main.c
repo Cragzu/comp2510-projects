@@ -4,14 +4,14 @@
 #include <stdlib.h>
 
 struct Node {
-    int data;
+    void *data;
     struct Node *left;
     struct Node *right;
 };
 
 typedef struct Node *TreeNode;
 
-TreeNode createTreeNode(int data) {
+TreeNode createTreeNode(void *data) {
     TreeNode treeNode = (TreeNode) malloc(sizeof(struct Node));
     if (treeNode == NULL) {
         perror("Memory issues!");
@@ -20,13 +20,6 @@ TreeNode createTreeNode(int data) {
     treeNode->data = data;
     treeNode->left = NULL;
     treeNode->right = NULL;
-    return treeNode;
-}
-
-TreeNode createTreeNodeWithChildren(int data, TreeNode left, TreeNode right) {
-    TreeNode treeNode = createTreeNode(data);
-    treeNode->left = left;
-    treeNode->right = right;
     return treeNode;
 }
 
@@ -108,43 +101,15 @@ void printInOrder(TreeNode root) {
     printInOrder(root->right);
 }
 
-int getTreeHeight(TreeNode root) {
-    if (!root) {
-        return 0;
-    }
-
-    int leftHeight = getTreeHeight(root->left);
-    int rightHeight = getTreeHeight(root->right);
-
-    int max = (leftHeight > rightHeight) ? leftHeight : rightHeight;
-    return max + 1; // to account for the root
-}
-
-TreeNode findNodeWithData(TreeNode root, int targetData) {
-    if (!root) {
-        return NULL;
-    }
-
-    if (root->data == targetData) {
-        return root;
-    }
-
-    if (root->data > targetData) {
-        return findNodeWithData(root->left, targetData);
-    }
-
-    return findNodeWithData(root->right, targetData);
-}
-
-TreeNode insert(TreeNode root, int newData) {
+TreeNode insert(TreeNode root, void *newData, bool (*compare)(void *, void *)) {
     if (!root) {
         return createTreeNode(newData);
     }
 
-    if (newData <= root->data) {
-        root->left = insert(root->left, newData);
+    if (compare(newData, root->data)) {
+        root->left = insert(root->left, newData, compare);
     } else {
-        root->right = insert(root->right, newData);
+        root->right = insert(root->right, newData, compare);
     }
 
     return root;
@@ -213,18 +178,23 @@ void genericBubbleSort(void *array, size_t arrSize, size_t datatypeSize, bool (*
     }
 }
 
+TreeNode createSortedTree(void *array, size_t arrSize, size_t datatypeSize, bool (*compare)(void *, void *)) {
+    TreeNode root = NULL;
+
+    for (int i = 0; i < arrSize; i++) {
+        void * currentElement = findNthElement(array, i, datatypeSize);
+        root = insert(root, currentElement, compare);
+    }
+    return root;
+}
+
 int main() {
 
-    printf("%d", stringCompare("Chloe", "Seyed"));
-    double test = 3.3;
-    printDouble(&test);
+    // Test with ints
+    int intArray[5] = {10, 1, -2, 5, 7};
+    TreeNode root = createSortedTree((void *) intArray, 5, sizeof(int), intCompare);
+    printInOrder(root);
 
-//    // Test with ints
-//    int intArray[5] = {10, 1, -2, 5, 7};
-//    genericBubbleSort((void *) intArray, 5, sizeof(int), intCompare);
-//    for (int i = 0; i < 5; i++) {
-//        printf("A[%d] = %d\n", i, intArray[i]);
-//    }
 //
 //    // Test with doubles
 //    double doubleArray[5] = {10.0, 1.0, 2.0, 5.0, 7.0};
