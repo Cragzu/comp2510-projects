@@ -60,6 +60,35 @@ void printTree(TreeNode root) {
     printTree(root->right);
 }
 
+int getTreeHeight(TreeNode root) {
+    if (!root) {
+        return 0;
+    }
+
+    int leftHeight = getTreeHeight(root->left);
+    int rightHeight = getTreeHeight(root->right);
+
+    int max = (leftHeight > rightHeight) ? leftHeight : rightHeight;
+    return max + 1; // to account for the root
+}
+
+TreeNode findNodeWithData(TreeNode root, int targetData) {
+    if (!root) {
+        return NULL;
+    }
+
+    if (root->data == targetData) {
+        return root;
+    }
+
+    if (root->data > targetData) {
+        return findNodeWithData(root->left, targetData);
+    }
+
+    return findNodeWithData(root->right, targetData);
+
+}
+
 int main() {
  /* Diagram of the tree...
            5
@@ -85,6 +114,12 @@ int main() {
 
     // root
     TreeNode root = createTreeNodeWithChildren(5, node_3, node_8);
+
+    printTree(root);
+    printf("Height = %d\n", getTreeHeight(root));
+
+    TreeNode foundNode = findNodeWithData(root, 4);
+    printNode(foundNode);
 
     return 0;
 }
