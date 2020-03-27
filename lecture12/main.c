@@ -28,6 +28,37 @@ TreeNode createTreeNodeWithChildren(int data, TreeNode left, TreeNode right) {
     return treeNode;
 }
 
+void printNode(TreeNode node) {
+    if (!node) {
+        printf("NULL\n");
+    }
+
+    if (node->left && node->right) {
+        printf("Node: %d, left = %d, right = %d\n", node->data, node->left->data, node->right->data);
+        return;
+    }
+    if (node->left) {
+        printf("Node: %d, left = %d, right = NULL\n", node->data, node->left->data);
+        return;
+    }
+    if (node->right) {
+        printf("Node: %d, left = NULL, right = %d\n", node->data, node->right->data);
+        return;
+    }
+
+    printf("Node: %d, left = NULL, right = NULL\n", node->data);
+}
+
+void printTree(TreeNode root) {
+    if (!root) {
+        return;
+    }
+
+    // Pre-order traversal
+    printNode(root);
+    printTree(root->left);
+    printTree(root->right);
+}
 
 int main() {
  /* Diagram of the tree...
