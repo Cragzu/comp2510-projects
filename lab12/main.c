@@ -23,18 +23,6 @@ TreeNode createTreeNode(void *data) {
     return treeNode;
 }
 
-void *findNthElement(void *array, int n, size_t sizeOfEachElementInBytes) {
-    return (char *) array + (n - 1) * sizeOfEachElementInBytes;
-}
-
-// Generic swap function
-void swap(void *first, void *second, size_t numberOfBytes) {
-    char temp[numberOfBytes];
-    memcpy(temp, first, numberOfBytes);
-    memcpy(first, second, numberOfBytes);
-    memcpy(second, temp, numberOfBytes);
-}
-
 // Pointer comparison of ints
 bool intCompare(void *a, void *b) {
     int firstValue = *(int *) a;
@@ -61,6 +49,10 @@ bool stringCompare(void *data1, void *data2) {
     return strcmp(data1, data2) >= 0;
 }
 
+void printInt(void *data) {
+    printf("%d", *(int *)data);
+}
+
 void printString(void *data) {
     printf("%s", (char *)data);
 }
@@ -69,36 +61,18 @@ void printDouble(void *data) {
     printf("%.2lf", *(double *)data);
 }
 
-void printNode(TreeNode node) {
-    if (!node) {
-        printf("NULL\n");
-    }
-
-    if (node->left && node->right) {
-        printf("Node: %d, left = %d, right = %d\n", node->data, node->left->data, node->right->data);
-        return;
-    }
-    if (node->left) {
-        printf("Node: %d, left = %d, right = NULL\n", node->data, node->left->data);
-        return;
-    }
-    if (node->right) {
-        printf("Node: %d, left = NULL, right = %d\n", node->data, node->right->data);
-        return;
-    }
-
-    printf("Node: %d, left = NULL, right = NULL\n", node->data);
-}
-
-void printInOrder(TreeNode root) {
+void printInOrder(TreeNode root, void (*print)(void *data)) {
     if (!root) {
         return;
     }
 
     // In-order traversal
-    printInOrder(root->left);
-    printNode(root);
-    printInOrder(root->right);
+    printInOrder(root->left, print);
+
+    print(root->data);
+    printf("\n");
+
+    printInOrder(root->right, print);
 }
 
 TreeNode insert(TreeNode root, void *newData, bool (*compare)(void *, void *)) {
@@ -115,100 +89,30 @@ TreeNode insert(TreeNode root, void *newData, bool (*compare)(void *, void *)) {
     return root;
 }
 
-//int main() {
-//    /* Diagram of the tree...
-//              5
-//             / \
-//           /     \
-//          3       8
-//         /\       /\
-//        /  \     /  \
-//       1    4   6    9
-//   */
-//
-//    // instantiate tree, could also be done with insert function
-//
-//    // bottom "leaves" have no children
-//    TreeNode node_1 = createTreeNode(1);
-//    TreeNode node_4 = createTreeNode(4);
-//    TreeNode node_6 = createTreeNode(6);
-//    TreeNode node_9 = createTreeNode(9);
-//
-//    // middle of the tree
-//    TreeNode node_3 = createTreeNodeWithChildren(3, node_1, node_4);
-//    TreeNode node_8 = createTreeNodeWithChildren(8, node_6, node_9);
-//
-//    // root
-//    TreeNode root = createTreeNodeWithChildren(5, node_3, node_8);
-//
-//    printPreOrder(root);
-//    printf("Height = %d\n", getTreeHeight(root));
-//
-//    TreeNode foundNode = findNodeWithData(root, 4);
-//    printNode(foundNode);
-//
-//    root = insert(root, 10);
-//
-//    printf("\nPre-order:\n");
-//    printPreOrder(root);
-//    printf("\nIn-order:\n");
-//    printInOrder(root);
-//    printf("\nPost-order:\n");
-//    printPostOrder(root);
-//
-//    return 0;
-//}
-
-
-// Bubble sorts array of any data type
-void genericBubbleSort(void *array, size_t arrSize, size_t datatypeSize, bool (*compare)(void *, void *)) {
-    while (true) {
-        bool swapped = false;
-        for (int i = 1; i < arrSize; i++) {
-            void * currentElement = findNthElement(array, i, datatypeSize);
-            void * nextElement = findNthElement(array, i + 1, datatypeSize);
-            if (compare(currentElement, nextElement)) {
-                swapped = true;
-                swap(currentElement, nextElement, datatypeSize);
-            }
-        }
-        if (!swapped) {
-            return;
-        }
-    }
-}
-
-TreeNode createSortedTree(void *array, size_t arrSize, size_t datatypeSize, bool (*compare)(void *, void *)) {
+TreeNode createSortedTree(void *array, int arrSize, size_t datatypeSize, bool (*compare)(void *, void *)) {
     TreeNode root = NULL;
 
     for (int i = 0; i < arrSize; i++) {
-        void * currentElement = findNthElement(array, i, datatypeSize);
-        root = insert(root, currentElement, compare);
+        root = insert(root, (char *) array + (i * datatypeSize), compare);
     }
     return root;
 }
 
 int main() {
 
-    // Test with ints
-    int intArray[5] = {10, 1, -2, 5, 7};
-    TreeNode root = createSortedTree((void *) intArray, 5, sizeof(int), intCompare);
-    printInOrder(root);
+//    // Test with ints
+//    int intArray[5] = {10, 1, -2, 5, 7};
+//    TreeNode root = createSortedTree((void *) intArray, 5, sizeof(int), intCompare);
+//    printInOrder(root, printInt);
 
-//
-//    // Test with doubles
-//    double doubleArray[5] = {10.0, 1.0, 2.0, 5.0, 7.0};
-//    genericBubbleSort((void *) doubleArray, 5, sizeof(double), doubleCompare);
-//    for (int i = 0; i < 5; i++) {
-//        printf("A[%d] = %f\n", i, doubleArray[i]);
-//    }
-//
-//    // Test with chars
-//    char charArray[5] = {'d', 'a', 'c', 'b', 'e'};
-//    genericBubbleSort((void *) charArray, 5, sizeof(char), charCompare);
-//    for (int i = 0; i < 5; i++) {
-//        printf("A[%d] = %c\n", i, charArray[i]);
-//    }
+
+    // Test with doubles
+    double doubleArray[5] = {10.0, 1.0, 2.0, 5.0, 7.0};
+
+    TreeNode root = createSortedTree((void *) doubleArray, 5, sizeof(double), doubleCompare);
+    printInOrder(root, printDouble);
+
+
 
     return 0;
 }
