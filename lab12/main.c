@@ -23,45 +23,27 @@ TreeNode createTreeNode(void *data) {
     return treeNode;
 }
 
-// Pointer comparison of ints
-bool intCompare(void *a, void *b) {
-    int firstValue = *(int *) a;
-    int secondValue = *(int *) b;
-    return (firstValue > secondValue);
-}
-
 // Pointer comparison of doubles
 bool doubleCompare(void *a, void *b) {
     double firstValue = *(double *) a;
     double secondValue = *(double *) b;
-    return (firstValue >= secondValue);
-}
-
-// Pointer comparison of chars
-bool charCompare(void *a, void *b) {
-    char firstValue = *(char *) a;
-    char secondValue = *(char *) b;
-    return (firstValue > secondValue);
-}
-
-// Pointer comparison of strings
-bool stringCompare(void *data1, void *data2) {
-    return strcmp(data1, data2) >= 0;
-}
-
-void printInt(void *data) {
-    printf("%d", *(int *)data);
-}
-
-void printString(void *data) {
-    printf("%s", (char *)data);
+    return (firstValue < secondValue);
 }
 
 void printDouble(void *data) {
     printf("%.2lf", *(double *)data);
 }
 
-void printInOrder(TreeNode root, void (*print)(void *data)) {
+// Pointer comparison of strings
+bool stringCompare(void *data1, void *data2) {
+    return strcmp(*(char **) data1, *(char **) data2) < 0;
+}
+
+void printString(void *data) {
+    printf("%s", *(char **) data);
+}
+
+void printInOrder(TreeNode root, void (*print)(void *)) {
     if (!root) {
         return;
     }
@@ -99,20 +81,19 @@ TreeNode createSortedTree(void *array, int arrSize, size_t datatypeSize, bool (*
 }
 
 int main() {
-
-//    // Test with ints
-//    int intArray[5] = {10, 1, -2, 5, 7};
-//    TreeNode root = createSortedTree((void *) intArray, 5, sizeof(int), intCompare);
-//    printInOrder(root, printInt);
-
-
     // Test with doubles
     double doubleArray[5] = {10.0, 1.0, 2.0, 5.0, 7.0};
 
-    TreeNode root = createSortedTree((void *) doubleArray, 5, sizeof(double), doubleCompare);
-    printInOrder(root, printDouble);
+    TreeNode doubleRoot = createSortedTree((void *) doubleArray, 5, sizeof(double), doubleCompare);
+    printInOrder(doubleRoot, printDouble);
 
+    printf("\n");
 
+    // Test with strings
+    char *stringArray[5] = {"Seyed", "Jack", "Adam", "Michael", "Chloe"};
+
+    TreeNode stringRoot = createSortedTree((void *) stringArray, 5, sizeof(char *), stringCompare);
+    printInOrder(stringRoot, printString);
 
     return 0;
 }
