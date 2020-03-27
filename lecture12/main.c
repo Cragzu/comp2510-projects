@@ -49,16 +49,39 @@ void printNode(TreeNode node) {
     printf("Node: %d, left = NULL, right = NULL\n", node->data);
 }
 
-void printTree(TreeNode root) {
+void printPreOrder(TreeNode root) {
     if (!root) {
         return;
     }
 
     // Pre-order traversal
     printNode(root);
-    printTree(root->left);
-    printTree(root->right);
+    printPreOrder(root->left);
+    printPreOrder(root->right);
 }
+
+void printInOrder(TreeNode root) {
+    if (!root) {
+        return;
+    }
+
+    // In-order traversal
+    printInOrder(root->left);
+    printNode(root);
+    printInOrder(root->right);
+}
+
+void printPostOrder(TreeNode root) {
+    if (!root) {
+        return;
+    }
+
+    // Post-order traversal
+    printPostOrder(root->left);
+    printPostOrder(root->right);
+    printNode(root);
+}
+
 
 int getTreeHeight(TreeNode root) {
     if (!root) {
@@ -112,9 +135,9 @@ int main() {
      /  \     /  \
     1    4   6    9
 */
-
-    // function that takes the root of a tree and prints info
-
+ 
+    // instantiate tree, could also be done with insert function
+    
     // bottom "leaves" have no children
     TreeNode node_1 = createTreeNode(1);
     TreeNode node_4 = createTreeNode(4);
@@ -128,14 +151,20 @@ int main() {
     // root
     TreeNode root = createTreeNodeWithChildren(5, node_3, node_8);
 
-    printTree(root);
+    printPreOrder(root);
     printf("Height = %d\n", getTreeHeight(root));
 
     TreeNode foundNode = findNodeWithData(root, 4);
     printNode(foundNode);
 
     root = insert(root, 10);
-    printTree(root);
+
+    printf("\nPre-order:\n");
+    printPreOrder(root);
+    printf("\nIn-order:\n");
+    printInOrder(root);
+    printf("\nPost-order:\n");
+    printPostOrder(root);
 
     return 0;
 }

@@ -161,12 +161,28 @@ Link copyListReverse(Link *head) {
     return copiedHead;
 }
 
+Link concatenateListWithItself(Link *head) {
+    if (!head) {
+        return NULL;
+    }
+    Link copiedListHead = copyList(head);
+    Link originalTail = getTail(*head);
+    originalTail->next = copiedListHead;
+    return *head;
+}
+
 int main() {
     Link head = NULL;
     addLast(&head, 1);
     addLast(&head, 2);
     addLast(&head, 3);
     addLast(&head, 4);
+
+    printLinkedList(head);
+
+    concatenateListWithItself(&head);
+
+    printLinkedList(head);
 
     printf("Initial List\n");
     printLinkedList(head); // 4 -> 20 -> 10
