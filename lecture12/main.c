@@ -86,7 +86,20 @@ TreeNode findNodeWithData(TreeNode root, int targetData) {
     }
 
     return findNodeWithData(root->right, targetData);
+}
 
+TreeNode insert(TreeNode root, int newData) {
+    if (!root) {
+        return createTreeNode(newData);
+    }
+
+    if (newData <= root->data) {
+        root->left = insert(root->left, newData);
+    } else {
+        root->right = insert(root->right, newData);
+    }
+
+    return root;
 }
 
 int main() {
@@ -120,6 +133,9 @@ int main() {
 
     TreeNode foundNode = findNodeWithData(root, 4);
     printNode(foundNode);
+
+    root = insert(root, 10);
+    printTree(root);
 
     return 0;
 }
