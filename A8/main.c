@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 struct Node {
     int data;
@@ -125,6 +126,21 @@ TreeNode insert(TreeNode root, int newData) {
     return root;
 }
 
+bool equals(TreeNode firstRoot, TreeNode secondRoot) {
+    // todo
+    return true;
+}
+
+bool containsPathWithSum(TreeNode root, int sum) {
+    // todo
+    return true;
+}
+
+void mirror(TreeNode root) {
+    // todo
+    // recursively go down the tree and swap every left and right for each node?
+}
+
 int main() {
     /* Diagram of the tree...
               5
@@ -151,20 +167,20 @@ int main() {
     // root
     TreeNode root = createTreeNodeWithChildren(5, node_3, node_8);
 
-    printPreOrder(root);
-    printf("Height = %d\n", getTreeHeight(root));
-
-    TreeNode foundNode = findNodeWithData(root, 4);
-    printNode(foundNode);
-
-    root = insert(root, 10);
-
-    printf("\nPre-order:\n");
-    printPreOrder(root);
-    printf("\nIn-order:\n");
-    printInOrder(root);
-    printf("\nPost-order:\n");
-    printPostOrder(root);
+//    printPreOrder(root);
+//    printf("Height = %d\n", getTreeHeight(root));
+//
+//    TreeNode foundNode = findNodeWithData(root, 4);
+//    printNode(foundNode);
+//
+//    root = insert(root, 10);
+//
+//    printf("\nPre-order:\n");
+//    printPreOrder(root);
+//    printf("\nIn-order:\n");
+//    printInOrder(root);
+//    printf("\nPost-order:\n");
+//    printPostOrder(root);
 
     return 0;
 }
