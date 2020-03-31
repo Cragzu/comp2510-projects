@@ -149,68 +149,82 @@ bool containsPathWithSum(TreeNode root, int sum) {
 void mirror(TreeNode root) {
     // todo
     // recursively go down the tree and swap every left and right for each node?
+    if (!root) {
+        return;
+    }
+
+    TreeNode temp = root->left;
+    root->left = root->right;
+    root->right = temp;
+
+    mirror(root->left);
+    mirror(root->right);
+
+
+
+
 }
 
 int main() {
-    printf("Testing equals function...\n");
-
-    TreeNode testEqualsNull1 = NULL;
-    TreeNode testEqualsNull2 = NULL;
-    printf("Two null trees: %s\n", equals(testEqualsNull1, testEqualsNull2) ? "true" : "false"); // true
-
-
-    TreeNode testEqualsSameData1 = createTreeNode(5);
-    insert(testEqualsSameData1, 4);
-    insert(testEqualsSameData1, 10);
-    insert(testEqualsSameData1, -8);
-
-    TreeNode testEqualsSameData2 = createTreeNode(5);
-    insert(testEqualsSameData2, 4);
-    insert(testEqualsSameData2, 10);
-    insert(testEqualsSameData2, -8);
-
-    printf("Two non-null equal trees: %s\n",equals(testEqualsSameData1, testEqualsSameData2)
-    ? "true" : "false"); // true
-
-
-    TreeNode testEqualsDifferentData = createTreeNode(12);
-    insert(testEqualsDifferentData, 6);
-    insert(testEqualsDifferentData, 1);
-    insert(testEqualsDifferentData, -3);
-
-    printf("Two non-null non-equal trees: %s\n",equals(testEqualsSameData1, testEqualsDifferentData)
-    ? "true" : "false"); // false
-
-    printf("\n-----------------------\n\n");
-
-    printf("Testing containsPathWithSum function...\n");
-
-    printf("\n-----------------------\n\n");
+    // todo: uncomment test cases
+    //<editor-fold desc="currently unused tests">
+//    printf("Testing equals function...\n");
+//
+//    TreeNode testEqualsNull1 = NULL;
+//    TreeNode testEqualsNull2 = NULL;
+//    printf("Two null trees: %s\n", equals(testEqualsNull1, testEqualsNull2) ? "true" : "false"); // true
+//
+//
+//    TreeNode testEqualsSameData1 = createTreeNode(5);
+//    insert(testEqualsSameData1, 4);
+//    insert(testEqualsSameData1, 10);
+//    insert(testEqualsSameData1, -8);
+//
+//    TreeNode testEqualsSameData2 = createTreeNode(5);
+//    insert(testEqualsSameData2, 4);
+//    insert(testEqualsSameData2, 10);
+//    insert(testEqualsSameData2, -8);
+//
+//    printf("Two non-null equal trees: %s\n", equals(testEqualsSameData1, testEqualsSameData2)
+//                                             ? "true" : "false"); // true
+//
+//
+//    TreeNode testEqualsDifferentData = createTreeNode(12);
+//    insert(testEqualsDifferentData, 6);
+//    insert(testEqualsDifferentData, 1);
+//    insert(testEqualsDifferentData, -3);
+//
+//    printf("Two non-null non-equal trees: %s\n", equals(testEqualsSameData1, testEqualsDifferentData)
+//                                                 ? "true" : "false"); // false
+//
+//    printf("\n-----------------------\n\n");
+//
+//    printf("Testing containsPathWithSum function...\n");
+//
+//    printf("\n-----------------------\n\n");
+    //</editor-fold>
 
     printf("Testing mirror function...\n");
 
+    TreeNode testMirrorNull = NULL;
+    printf("Null tree before mirror (should print nothing):\n");
+    printInOrder(testMirrorNull);
+    mirror(testMirrorNull);
+    printf("Null tree after mirror (should print nothing):\n");
+    printInOrder(testMirrorNull);
 
 
-//    TreeNode root2 = createTreeNode(5);
-//    insert(root2, 4);
-//    insert(root2, 10);
-//    insert(root2, -8);
+    TreeNode testMirrorNotNull = createTreeNode(5);
+    insert(testMirrorNotNull, 4);
+    insert(testMirrorNotNull, 10);
+    insert(testMirrorNotNull, -8);
 
+    printf("Non-null tree before mirror:\n");
+    printInOrder(testMirrorNotNull);
+    mirror(testMirrorNotNull);
+    printf("Non-null tree after mirror:\n");
+    printInOrder(testMirrorNotNull);
 
-//    printPreOrder(root);
-//    printf("Height = %d\n", getTreeHeight(root));
-//
-//    TreeNode foundNode = findNodeWithData(root, 4);
-//    printNode(foundNode);
-//
-//    root = insert(root, 10);
-//
-//    printf("\nPre-order:\n");
-//    printPreOrder(root);
-//    printf("\nIn-order:\n");
-//    printInOrder(root);
-//    printf("\nPost-order:\n");
-//    printPostOrder(root);
 
     return 0;
 }
