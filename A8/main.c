@@ -142,69 +142,97 @@ bool equals(TreeNode firstRoot, TreeNode secondRoot) {
 }
 
 bool containsPathWithSum(TreeNode root, int sum) {
-    // todo
-    return true;
+    if (!root) {
+        return (sum == 0);
+    }
+
+    bool result = false;
+    sum -= root->data; // subtract node data from sum, trying to get to 0
+
+    if (sum == 0 && root->left == 0 && root->right == 0) { // base case, reached leaf node with path equal to sum
+        return true;
+    }
+
+    // recurse down the tree
+    if (root->left) {
+        result = result || containsPathWithSum(root->left, sum);
+    }
+    if (root->right) {
+        result = result || containsPathWithSum(root->right, sum);
+    }
+    return result;
 }
 
 void mirror(TreeNode root) {
-    // todo
-    // recursively go down the tree and swap every left and right for each node?
     if (!root) {
         return;
     }
 
+    // swap left and right subtrees
     TreeNode temp = root->left;
     root->left = root->right;
     root->right = temp;
 
+    // recurse downwards
     mirror(root->left);
     mirror(root->right);
-
-
-
-
 }
 
 int main() {
-    // todo: uncomment test cases
-    //<editor-fold desc="currently unused tests">
-//    printf("Testing equals function...\n");
-//
-//    TreeNode testEqualsNull1 = NULL;
-//    TreeNode testEqualsNull2 = NULL;
-//    printf("Two null trees: %s\n", equals(testEqualsNull1, testEqualsNull2) ? "true" : "false"); // true
-//
-//
-//    TreeNode testEqualsSameData1 = createTreeNode(5);
-//    insert(testEqualsSameData1, 4);
-//    insert(testEqualsSameData1, 10);
-//    insert(testEqualsSameData1, -8);
-//
-//    TreeNode testEqualsSameData2 = createTreeNode(5);
-//    insert(testEqualsSameData2, 4);
-//    insert(testEqualsSameData2, 10);
-//    insert(testEqualsSameData2, -8);
-//
-//    printf("Two non-null equal trees: %s\n", equals(testEqualsSameData1, testEqualsSameData2)
-//                                             ? "true" : "false"); // true
-//
-//
-//    TreeNode testEqualsDifferentData = createTreeNode(12);
-//    insert(testEqualsDifferentData, 6);
-//    insert(testEqualsDifferentData, 1);
-//    insert(testEqualsDifferentData, -3);
-//
-//    printf("Two non-null non-equal trees: %s\n", equals(testEqualsSameData1, testEqualsDifferentData)
-//                                                 ? "true" : "false"); // false
-//
-//    printf("\n-----------------------\n\n");
-//
-//    printf("Testing containsPathWithSum function...\n");
-//
-//    printf("\n-----------------------\n\n");
-    //</editor-fold>
+    printf("\n----------- Testing equals function ------------\n\n");
 
-    printf("Testing mirror function...\n");
+    TreeNode testEqualsNull1 = NULL;
+    TreeNode testEqualsNull2 = NULL;
+    printf("Two null trees: %s\n", equals(testEqualsNull1, testEqualsNull2) ? "true" : "false"); // true
+
+
+    TreeNode testEqualsSameData1 = createTreeNode(5);
+    insert(testEqualsSameData1, 4);
+    insert(testEqualsSameData1, 10);
+    insert(testEqualsSameData1, -8);
+
+    TreeNode testEqualsSameData2 = createTreeNode(5);
+    insert(testEqualsSameData2, 4);
+    insert(testEqualsSameData2, 10);
+    insert(testEqualsSameData2, -8);
+
+    printf("Two non-null equal trees: %s\n", equals(testEqualsSameData1, testEqualsSameData2)
+    ? "true" : "false"); // true
+
+
+    TreeNode testEqualsDifferentData = createTreeNode(12);
+    insert(testEqualsDifferentData, 6);
+    insert(testEqualsDifferentData, 1);
+    insert(testEqualsDifferentData, -3);
+
+    printf("Two non-null non-equal trees: %s\n", equals(testEqualsSameData1, testEqualsDifferentData)
+    ? "true" : "false"); // false
+
+
+    printf("\n----------- Testing containsPathWithSum function ------------\n\n");
+
+    TreeNode testContains = createTreeNode(5);
+    insert(testContains, 4);
+    insert(testContains, 10);
+    insert(testContains, -8);
+
+    printf("Tree to check for sums:\n");
+    printInOrder(testContains);
+    printf("\n");
+
+
+    printf("Tree contains a path adding up to 1?: %s\n", containsPathWithSum(testContains, 1)
+    ? "true" : "false"); // true
+
+    printf("Tree contains a path adding up to 15?: %s\n", containsPathWithSum(testContains, 15)
+    ? "true" : "false"); // true
+
+    printf("Tree contains a path adding up to 9?: %s\n", containsPathWithSum(testContains, 9)
+    ? "true" : "false"); // false
+
+
+    printf("\n----------- Testing mirror function ------------\n\n");
+
 
     TreeNode testMirrorNull = NULL;
     printf("Null tree before mirror (should print nothing):\n");
@@ -219,12 +247,11 @@ int main() {
     insert(testMirrorNotNull, 10);
     insert(testMirrorNotNull, -8);
 
-    printf("Non-null tree before mirror:\n");
+    printf("\nNon-null tree before mirror:\n");
     printInOrder(testMirrorNotNull);
     mirror(testMirrorNotNull);
-    printf("Non-null tree after mirror:\n");
+    printf("\nNon-null tree after mirror:\n");
     printInOrder(testMirrorNotNull);
-
 
     return 0;
 }
