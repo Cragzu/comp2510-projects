@@ -22,13 +22,6 @@ TreeNode createTreeNode(int data) {
     return treeNode;
 }
 
-TreeNode createTreeNodeWithChildren(int data, TreeNode left, TreeNode right) {
-    TreeNode treeNode = createTreeNode(data);
-    treeNode->left = left;
-    treeNode->right = right;
-    return treeNode;
-}
-
 void printNode(TreeNode node) {
     if (!node) {
         printf("NULL\n");
@@ -50,17 +43,6 @@ void printNode(TreeNode node) {
     printf("Node: %d, left = NULL, right = NULL\n", node->data);
 }
 
-void printPreOrder(TreeNode root) {
-    if (!root) {
-        return;
-    }
-
-    // Pre-order traversal
-    printNode(root);
-    printPreOrder(root->left);
-    printPreOrder(root->right);
-}
-
 void printInOrder(TreeNode root) {
     if (!root) {
         return;
@@ -70,46 +52,6 @@ void printInOrder(TreeNode root) {
     printInOrder(root->left);
     printNode(root);
     printInOrder(root->right);
-}
-
-void printPostOrder(TreeNode root) {
-    if (!root) {
-        return;
-    }
-
-    // Post-order traversal
-    printPostOrder(root->left);
-    printPostOrder(root->right);
-    printNode(root);
-}
-
-
-int getTreeHeight(TreeNode root) {
-    if (!root) {
-        return 0;
-    }
-
-    int leftHeight = getTreeHeight(root->left);
-    int rightHeight = getTreeHeight(root->right);
-
-    int max = (leftHeight > rightHeight) ? leftHeight : rightHeight;
-    return max + 1; // to account for the root
-}
-
-TreeNode findNodeWithData(TreeNode root, int targetData) {
-    if (!root) {
-        return NULL;
-    }
-
-    if (root->data == targetData) {
-        return root;
-    }
-
-    if (root->data > targetData) {
-        return findNodeWithData(root->left, targetData);
-    }
-
-    return findNodeWithData(root->right, targetData);
 }
 
 TreeNode insert(TreeNode root, int newData) {
