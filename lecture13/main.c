@@ -60,6 +60,35 @@ int pop(DLink *head) {
     return data;
 }
 
+int removeNode(DLink *node) {
+    if (!*node) {
+        perror("Empty node passed to removeNode function!");
+        exit(1);
+    }
+
+    if (!(*node)->prev) { // passed node is first in list
+        return pop(node);
+    }
+
+    if (!(*node)->next) { // passed node is last in list
+        (*node)->prev->next = NULL;
+        int removedData = (*node)->data;
+        free(*node);
+        return removedData;
+    }
+
+    // passed node is in the middle of the list
+    int removedData = (*node)->data;
+    DLink prevNode = (*node)->prev;
+    DLink nextNode = (*node)->next;
+    free(*node);
+    prevNode->next = nextNode;
+    nextNode->prev = prevNode;
+
+    return removedData;
+
+}
+
 
 int main() {
     DLink head = NULL;
@@ -68,6 +97,9 @@ int main() {
     push(&head, 1);
 
     printLinkedList(head);
+    int data = removeNode(&(head->next));
+    printf("Removed %d\n", data);
+    printLinkedList(head);
 
-//    printf("%d", pop(&head));
+
 }
