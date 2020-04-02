@@ -125,6 +125,25 @@ TreeNode insert(TreeNode root, int newData) {
     return root;
 }
 
+TreeNode findLowestCommonAncestorBST(TreeNode root, TreeNode first, TreeNode second) {
+    // if one is greater and one is less than root, the LCA is the root
+    // if both are less, call again with root->left
+    // if both are greater, call again with root->right
+    if (!root || !first || !second) {
+        return NULL;
+    }
+
+    if ((first->data < root->data) && (second->data < root->data)) { // both are less than root
+        return findLowestCommonAncestorBST(root->left, first, second);
+    }
+
+    if ((first->data > root->data) && (second->data > root->data)) { // both are greater than root
+        return findLowestCommonAncestorBST(root->right, first, second);
+    }
+
+    return root;
+}
+
 int main() {
  /* Diagram of the tree...
            5
@@ -151,20 +170,24 @@ int main() {
     // root
     TreeNode root = createTreeNodeWithChildren(5, node_3, node_8);
 
-    printPreOrder(root);
-    printf("Height = %d\n", getTreeHeight(root));
+//    printPreOrder(root);
+//    printf("Height = %d\n", getTreeHeight(root));
+//
+//    TreeNode foundNode = findNodeWithData(root, 4);
+//    printNode(foundNode);
+//
+//    root = insert(root, 10);
+//
+//    printf("\nPre-order:\n");
+//    printPreOrder(root);
+//    printf("\nIn-order:\n");
+//    printInOrder(root);
+//    printf("\nPost-order:\n");
+//    printPostOrder(root);
 
-    TreeNode foundNode = findNodeWithData(root, 4);
-    printNode(foundNode);
+    TreeNode LCA = findLowestCommonAncestorBST(root, node_1, node_4);
+    printNode(LCA);
 
-    root = insert(root, 10);
-
-    printf("\nPre-order:\n");
-    printPreOrder(root);
-    printf("\nIn-order:\n");
-    printInOrder(root);
-    printf("\nPost-order:\n");
-    printPostOrder(root);
 
     return 0;
 }
