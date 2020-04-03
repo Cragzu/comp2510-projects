@@ -114,9 +114,36 @@ DLink sum(DLink firstNumber, DLink secondNumber) {
         exit(1);
     }
 
-    printf("%d\n", firstNumber->data + secondNumber->data);
+    DLink sumList = NULL;
+    DLink firstTail = getTail(firstNumber);
+    DLink secondTail = getTail(secondNumber);
 
-    return NULL;
+    while (firstTail->prev || secondTail->prev) {
+        int firstData = (firstTail ? firstTail->data : 0);
+        int secondData = (secondTail ? secondTail->data : 0);
+
+        push(&sumList, (firstData + secondData));
+
+        if (firstTail->prev) {
+            firstTail = firstTail->prev;
+            printf("Moved to %d\n", firstTail->data);
+        } else {
+            firstTail = NULL;
+        }
+
+        if (secondTail->prev) {
+            secondTail = secondTail->prev;
+            printf("Moved to %d\n", secondTail->data);
+        } else {
+            secondTail = NULL;
+        }
+    }
+
+
+    printf("Resulting list: ");
+    printLinkedList(sumList);
+
+    return sumList;
 
 }
 
@@ -132,8 +159,7 @@ int main() {
     printLinkedList(head1);
     printLinkedList(head2);
 
-
-//    sum(head1, head2);
+    sum(head1, head2);
 
 
 }
