@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 struct Node {
     int data;
@@ -7,7 +8,7 @@ struct Node {
     struct Node *prev;
 };
 
-typedef struct Node* DLink; // doubly linked list
+typedef struct Node *DLink; // doubly linked list
 
 DLink createNode(int data, DLink next, DLink prev) {
     DLink link = (DLink) malloc(sizeof(struct Node));
@@ -118,33 +119,33 @@ DLink sum(DLink firstNumber, DLink secondNumber) {
     DLink firstTail = getTail(firstNumber);
     DLink secondTail = getTail(secondNumber);
 
-    while (firstTail->prev || secondTail->prev) {
-        int firstData = (firstTail ? firstTail->data : 0);
-        int secondData = (secondTail ? secondTail->data : 0);
+    bool isFirstFinished = false;
+    bool isSecondFinished = false;
 
-        push(&sumList, (firstData + secondData));
+    while (!isFirstFinished || !isSecondFinished) {
 
-        if (firstTail->prev) {
-            firstTail = firstTail->prev;
-            printf("Moved to %d\n", firstTail->data);
+        if (!isFirstFinished && !isSecondFinished) {
+            push(&sumList, (firstTail->data + secondTail->data));
+        } else if (!isFirstFinished) {
+            push(&sumList, firstTail->data);
         } else {
-            firstTail = NULL;
+            push(&sumList, secondTail->data);
         }
 
-        if (secondTail->prev) {
-            secondTail = secondTail->prev;
-            printf("Moved to %d\n", secondTail->data);
+        if (!firstTail->prev) {
+            isFirstFinished = true;
         } else {
-            secondTail = NULL;
+            firstTail = firstTail->prev;
+        }
+
+        if (!secondTail->prev) {
+            isSecondFinished = true;
+        } else {
+            secondTail = secondTail->prev;
         }
     }
 
-
-    printf("Resulting list: ");
-    printLinkedList(sumList);
-
     return sumList;
-
 }
 
 
@@ -156,10 +157,15 @@ int main() {
     DLink head2 = NULL;
     push(&head2, 3);
 
+    printf("\nFirst list: ");
     printLinkedList(head1);
+
+    printf("\nSecond list: ");
     printLinkedList(head2);
 
-    sum(head1, head2);
+    DLink sumList = sum(head1, head2);
+    printf("\nSum list: ");
+    printLinkedList(sumList);
 
 
 }
