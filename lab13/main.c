@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 struct Node {
     int data;
@@ -42,52 +41,6 @@ void push(DLink *head, int data) {
         (*head)->prev = newHead;
     }
     *head = newHead;
-}
-
-int pop(DLink *head) {
-    if (!*head) {
-        perror("Empty list passed to pop function!\n");
-        exit(1);
-    }
-
-    int data = (*head)->data;
-    DLink oldHead = *head;
-    *head = (*head)->next;
-
-    if (*head) {
-        (*head)->prev = NULL;
-    }
-    free(oldHead);
-    return data;
-}
-
-int removeNode(DLink *node) {
-    if (!*node) {
-        perror("Empty node passed to removeNode function!");
-        exit(1);
-    }
-
-    if (!(*node)->prev) { // passed node is first in list
-        return pop(node);
-    }
-
-    if (!(*node)->next) { // passed node is last in list
-        (*node)->prev->next = NULL;
-        int removedData = (*node)->data;
-        free(*node);
-        return removedData;
-    }
-
-    // passed node is in the middle of the list
-    int removedData = (*node)->data;
-    DLink prevNode = (*node)->prev;
-    DLink nextNode = (*node)->next;
-    free(*node);
-    prevNode->next = nextNode;
-    nextNode->prev = prevNode;
-
-    return removedData;
-
 }
 
 DLink getTail(DLink head) {
@@ -144,34 +97,68 @@ DLink sum(DLink firstNumber, DLink secondNumber) {
 
 }
 
+void printSumTestCase(DLink firstList, DLink secondList, int caseNumber) {
+    printf("\n\n------------ Test case %d ------------\n\n", caseNumber);
+
+    printf("First list: ");
+    printLinkedList(firstList);
+
+    printf("Second list: ");
+    printLinkedList(secondList);
+
+    DLink sumList = sum(firstList, secondList);
+    printf("Sum list: ");
+    printLinkedList(sumList);
+}
 
 int main() {
-
-//    DLink head1 = NULL;
-//    push(&head1, 0);
-//    push(&head1, 1);
-//
-//    DLink head2 = NULL;
-//    push(&head2, 3);
-
     DLink head1 = NULL;
+    push(&head1, 0);
+    push(&head1, 1);
+
+    DLink head2 = NULL;
+    push(&head2, 3);
+
+    printSumTestCase(head1, head2, 1);
+
+
+    head1 = NULL;
     push(&head1, 1);
     push(&head1, 0);
     push(&head1, 9);
 
-    DLink head2 = NULL;
+    head2 = NULL;
     push(&head2, 9);
     push(&head2, 9);
 
-    printf("First list: ");
-    printLinkedList(head1);
+    printSumTestCase(head1, head2, 2);
 
-    printf("Second list: ");
-    printLinkedList(head2);
 
-    DLink sumList = sum(head1, head2);
-    printf("Sum list: ");
-    printLinkedList(sumList);
+    head1 = NULL;
+    push(&head1, 3);
+    push(&head1, 2);
+    push(&head1, 1);
+
+    head2 = NULL;
+    push(&head2, 1);
+    push(&head2, 2);
+    push(&head2, 3);
+
+    printSumTestCase(head1, head2, 3);
+
+
+    head1 = NULL;
+    push(&head1, 9);
+    push(&head1, 9);
+    push(&head1, 9);
+
+    head2 = NULL;
+    push(&head2, 7);
+    push(&head2, 0);
+    push(&head2, 0);
+    push(&head2, 1);
+
+    printSumTestCase(head1, head2, 4);
 
     return 0;
 }
