@@ -90,15 +90,6 @@ int removeNode(DLink *node) {
 
 }
 
-DLink createLinkedListFromNumber(int num) { // needed?
-    while (num > 0) {
-        int digit = num % 10;
-        printf("%d\n", digit);
-        num /= 10;
-    }
-    return NULL;
-}
-
 DLink getTail(DLink head) {
     if (!head) {
         return NULL;
@@ -115,57 +106,72 @@ DLink sum(DLink firstNumber, DLink secondNumber) {
         exit(1);
     }
 
-    DLink sumList = NULL;
+    DLink sumHead = NULL;
+
+    int remainder = 0;
+    int sum = 0;
+
     DLink firstTail = getTail(firstNumber);
     DLink secondTail = getTail(secondNumber);
 
-    bool isFirstFinished = false;
-    bool isSecondFinished = false;
+    while (firstTail || secondTail) {
+        int firstData = firstTail ? firstTail->data : 0;
+        int secondData = secondTail ? secondTail->data : 0;
 
-    while (!isFirstFinished || !isSecondFinished) {
-
-        if (!isFirstFinished && !isSecondFinished) {
-            push(&sumList, (firstTail->data + secondTail->data));
-        } else if (!isFirstFinished) {
-            push(&sumList, firstTail->data);
+        sum = remainder + firstData + secondData;
+        if (sum > 9) {
+            remainder = 1;
+            sum %= 10;
         } else {
-            push(&sumList, secondTail->data);
+            remainder = 0;
         }
 
-        if (!firstTail->prev) {
-            isFirstFinished = true;
-        } else {
+        push(&sumHead, sum);
+
+        if (firstTail) {
             firstTail = firstTail->prev;
         }
-
-        if (!secondTail->prev) {
-            isSecondFinished = true;
-        } else {
+        if (secondTail) {
             secondTail = secondTail->prev;
         }
     }
 
-    return sumList;
+    if (remainder == 1) {
+        push(&sumHead, remainder);
+    }
+
+    return sumHead;
+
 }
 
 
 int main() {
+
+//    DLink head1 = NULL;
+//    push(&head1, 0);
+//    push(&head1, 1);
+//
+//    DLink head2 = NULL;
+//    push(&head2, 3);
+
     DLink head1 = NULL;
-    push(&head1, 0);
     push(&head1, 1);
+    push(&head1, 0);
+    push(&head1, 9);
 
     DLink head2 = NULL;
-    push(&head2, 3);
+    push(&head2, 9);
+    push(&head2, 9);
 
-    printf("\nFirst list: ");
+    printf("First list: ");
     printLinkedList(head1);
 
-    printf("\nSecond list: ");
+    printf("Second list: ");
     printLinkedList(head2);
 
     DLink sumList = sum(head1, head2);
-    printf("\nSum list: ");
+    printf("Sum list: ");
     printLinkedList(sumList);
 
-
+    return 0;
 }
