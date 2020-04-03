@@ -89,17 +89,51 @@ int removeNode(DLink *node) {
 
 }
 
+DLink createLinkedListFromNumber(int num) { // needed?
+    while (num > 0) {
+        int digit = num % 10;
+        printf("%d\n", digit);
+        num /= 10;
+    }
+    return NULL;
+}
+
+DLink getTail(DLink head) {
+    if (!head) {
+        return NULL;
+    }
+    if (!head->next) {
+        return head;
+    }
+    return getTail(head->next);
+}
+
+DLink sum(DLink firstNumber, DLink secondNumber) {
+    if (!firstNumber || !secondNumber) {
+        perror("Empty list passed to sum function!");
+        exit(1);
+    }
+
+    printf("%d\n", firstNumber->data + secondNumber->data);
+
+    return NULL;
+
+}
+
 
 int main() {
-    DLink head = NULL;
-    push(&head, 3);
-    push(&head, 2);
-    push(&head, 1);
+    DLink head1 = NULL;
+    push(&head1, 0);
+    push(&head1, 1);
 
-    printLinkedList(head);
-    int data = removeNode(&(head->next));
-    printf("Removed %d\n", data);
-    printLinkedList(head);
+    DLink head2 = NULL;
+    push(&head2, 3);
+
+    printLinkedList(head1);
+    printLinkedList(head2);
+
+
+//    sum(head1, head2);
 
 
 }
