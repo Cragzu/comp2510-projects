@@ -3,16 +3,178 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct Node {
+//<editor-fold desc="Linked List Functions">
+struct LLNode {
     int data;
-    struct Node *left;
-    struct Node *right;
+    struct LLNode *next;
 };
 
-typedef struct Node *TreeNode;
+typedef struct LLNode *Link;
+
+void printLinkedList(struct LLNode *head) {
+    if (!head) {
+        printf("\n");
+        return;
+    }
+    printf("%d", head->data);
+    if (head->next) {
+        printf(" -> ");
+    }
+
+    printLinkedList(head->next);
+}
+
+Link createNode(int data) {
+    Link link = (Link) malloc(sizeof(struct LLNode));
+    if (link == NULL) {
+        perror("memory issues!");
+        exit(1);
+    }
+    link->data = data;
+    link->next = NULL;
+    return link;
+}
+
+Link createNodeWithNextNode(int data, Link next) {
+    Link link = createNode(data);
+    link->next = next;
+    return link;
+}
+
+int getLinkedListLength(Link head) {
+    int length = 0;
+    Link current = head;
+    while (current) {
+        current = current->next;
+        length++;
+    }
+    return length;
+}
+
+int getLinkedListLengthRecursively(Link head) {
+    if (!head) {
+        return 0;
+    }
+    return 1 + getLinkedListLengthRecursively(head->next);
+}
+
+Link push(Link *head, int newData) {
+    Link newHead = createNodeWithNextNode(newData, *head);
+    *head = newHead;
+    return newHead;
+}
+
+Link getTail(Link head) {
+    if (!head) {
+        return NULL;
+    }
+    if (!head->next) {
+        return head;
+    }
+    return getTail(head->next);
+}
+
+void addLast(Link *head, int data) {
+    Link newTail = createNode(data); // need not have next node
+    if (!*head) {
+        *head = newTail;
+        return;
+    }
+    Link currentTail = getTail(*head);
+    currentTail->next = newTail;
+}
+
+int removeTail(Link *head) {
+    if (!*head) { // nothing in the list
+        perror("Empty list was passed to removeTail function!");
+        exit(1);
+    }
+    Link currentNode = *head;
+    if (!currentNode->next) { // only one node in the list
+        *head = NULL;
+        int data = currentNode->data;
+        free(currentNode);
+        return data;
+    }
+
+    while (currentNode->next->next) { // check two nodes ahead
+        currentNode = currentNode->next;
+    }
+    Link oldTail = currentNode->next;
+    int oldTailData = oldTail->data;
+    free(oldTail);
+    currentNode->next = NULL;
+    return oldTailData;
+}
+
+int pop(Link *head) {
+    if (!head) {
+        perror("Empty list passed to pop function!\n");
+        exit(1);
+    }
+
+    int data = (*head)->data;
+    Link oldHead = *head;
+    *head = (*head)->next;
+    free(oldHead);
+    return data;
+}
+
+Link copyList(Link *head) {
+    if (!*head) {
+        perror("Empty list passed to copyList!");
+        exit(1);
+    }
+
+    Link originalCurrent = *head;
+    Link copiedHead = createNode((*head)->data); // copy the head
+
+    while (originalCurrent->next) {
+        originalCurrent = originalCurrent->next; // increment through original list
+        addLast(&copiedHead, originalCurrent->data); // push new node to end of copied list
+    }
+    return copiedHead;
+}
+
+Link copyListReverse(Link *head) {
+    if (!*head) {
+        perror("Empty list passed to copyListReverse!");
+        exit(1);
+    }
+
+    Link originalCurrent = *head;
+    Link copiedHead = createNode((*head)->data); // copy the head
+
+    while (originalCurrent->next) {
+        originalCurrent = originalCurrent->next; // increment through original list
+        copiedHead = push(&copiedHead, originalCurrent->data); // push new node to front of copied list
+    }
+    return copiedHead;
+}
+
+Link concatenateListWithItself(Link *head) {
+    if (!head) {
+        return NULL;
+    }
+    Link copiedListHead = copyList(head);
+    Link originalTail = getTail(*head);
+    originalTail->next = copiedListHead;
+    return *head;
+}
+//</editor-fold>
+
+//<editor-fold desc="Binary Tree Functions">
+
+struct TNode {
+    int data;
+    struct TNode *left;
+    struct TNode *right;
+};
+
+typedef struct TNode *TreeNode;
 
 TreeNode createTreeNode(int data) {
-    TreeNode treeNode = (TreeNode) malloc(sizeof(struct Node));
+    TreeNode treeNode = (TreeNode) malloc(sizeof(struct TNode));
     if (treeNode == NULL) {
         perror("Memory issues!");
         exit(1);
@@ -51,17 +213,6 @@ void printNode(TreeNode node) {
     printf("Node: %d, left = NULL, right = NULL\n", node->data);
 }
 
-void printPreOrder(TreeNode root) {
-    if (!root) {
-        return;
-    }
-
-    // Pre-order traversal
-    printNode(root);
-    printPreOrder(root->left);
-    printPreOrder(root->right);
-}
-
 void printInOrder(TreeNode root) {
     if (!root) {
         return;
@@ -72,18 +223,6 @@ void printInOrder(TreeNode root) {
     printNode(root);
     printInOrder(root->right);
 }
-
-void printPostOrder(TreeNode root) {
-    if (!root) {
-        return;
-    }
-
-    // Post-order traversal
-    printPostOrder(root->left);
-    printPostOrder(root->right);
-    printNode(root);
-}
-
 
 int getTreeHeight(TreeNode root) {
     if (!root) {
@@ -158,7 +297,7 @@ void mirror(TreeNode root) {
     mirror(root->right);
 }
 
-void duplicateNodeToLeft(TreeNode root) {
+void duplicateNodeToLeft(TreeNode root) { // todo: double check it works
     if (!root) {
         return;
     }
@@ -175,8 +314,9 @@ void duplicateNodeToLeft(TreeNode root) {
         root->left = newNode;
     }
 }
+//</editor-fold>
 
-int main() {
+int main() { // todo: test cases and remove unused functions
 
     printf("\n----------- Testing duplicateNodeToLeft function ------------\n\n");
 
@@ -191,6 +331,8 @@ int main() {
 
     printf("\nAfter:\n");
     printInOrder(node_30);
+
+
 
     return 0;
 }
