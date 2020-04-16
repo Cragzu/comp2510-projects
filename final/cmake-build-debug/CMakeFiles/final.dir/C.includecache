@@ -9,4 +9,10 @@
 C:/Users/cragz/OneDrive/Documents/CST/Term 2/COMP 2510/CLionProjects/final/main.c
 stdio.h
 -
+stdbool.h
+-
+stdlib.h
+-
+string.h
+-
 
