@@ -163,8 +163,17 @@ void duplicateNodeToLeft(TreeNode root) {
         return;
     }
 
+    duplicateNodeToLeft(root->left);
+    duplicateNodeToLeft(root->right);
 
-
+    TreeNode newNode = createTreeNode(root->data);
+    if (root->left != NULL) {
+        TreeNode temp = root->left;
+        root->left = newNode;
+        newNode->left = temp;
+    } else {
+        root->left = newNode;
+    }
 }
 
 int main() {
@@ -175,7 +184,12 @@ int main() {
     TreeNode node_40 = createTreeNodeWithChildren(40, node_20, NULL);
     TreeNode node_30 = createTreeNodeWithChildren(30, NULL, node_40);
 
-    printf("\nIn-order:\n");
+    printf("\nBefore:\n");
+    printInOrder(node_30);
+
+    duplicateNodeToLeft(node_30);
+
+    printf("\nAfter:\n");
     printInOrder(node_30);
 
     return 0;
