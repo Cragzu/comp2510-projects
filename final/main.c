@@ -73,6 +73,7 @@ void split(Link firstHalfHead, Link *secondHalfHead) {
 
 //</editor-fold>
 
+
 //<editor-fold desc="Binary Tree Functions">
 
 struct TNode {
@@ -155,6 +156,7 @@ void duplicateNodeToLeft(TreeNode root) { // todo: double check it works
 
 
 //<editor-fold desc="Doubly Linked List Functions">
+
 struct DNode {
     float data;
     struct DNode *next;
@@ -264,7 +266,16 @@ bool isValidTest(float test) {
 //</editor-fold>
 
 
+void printDigits(int n) { // works with 2 digits
+    if (n == 0) {
+        return;
+    }
 
+    printf("%d", 1);
+    printDigits(n - 1);
+
+    printf("%d", 2);
+}
 
 int main() { // todo: test cases and remove unused functions
 
@@ -302,22 +313,20 @@ int main() { // todo: test cases and remove unused functions
 //    printLinkedList(splitSecondHalf);
 
 
-    printf("\n----------- Testing filter function ------------\n\n"); // todo
-
-    DLink head1 = NULL;
-    push(&head1, 2.0);
-    push(&head1, 1.0);
-    push(&head1, 0.0);
-
-    printf("\nBefore:\n");
-    printDLinkedList(head1);
-
-    filter(&head1, isValidTest);
-
-    printf("\nAfter:\n");
-    printDLinkedList(head1);
-
-
+//    printf("\n----------- Testing filter function ------------\n\n");
+//
+//    DLink head1 = NULL;
+//    push(&head1, 2.0);
+//    push(&head1, 1.0);
+//    push(&head1, 0.0);
+//
+//    printf("\nBefore:\n");
+//    printDLinkedList(head1);
+//
+//    filter(&head1, isValidTest);
+//
+//    printf("\nAfter:\n");
+//    printDLinkedList(head1);
 
 
 //    printf("\n----------- Testing stringFun function ------------\n\n"); // todo
@@ -326,7 +335,10 @@ int main() { // todo: test cases and remove unused functions
 
 //    printf("\n----------- Testing topStudents function ------------\n\n"); // todo
 
-//    printf("\n----------- Testing printDigits function ------------\n\n"); // todo
+
+    printf("\n----------- Testing printDigits function ------------\n\n");
+
+    printDigits(4);
 
 
 
