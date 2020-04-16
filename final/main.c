@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 //<editor-fold desc="Linked List Functions">
 struct LLNode {
@@ -161,6 +162,25 @@ Link concatenateListWithItself(Link *head) {
     originalTail->next = copiedListHead;
     return *head;
 }
+
+void split(Link firstHalfHead, Link *secondHalfHead) {
+    if (!firstHalfHead || firstHalfHead->next == NULL) {
+        return;
+    }
+
+    int listMidpoint = ceil(getLinkedListLength(firstHalfHead) / 2.0); // round up if odd number of elements
+
+    int currentPosition = 1;
+    Link currentLink = firstHalfHead;
+    while (currentLink && currentPosition < listMidpoint) { // traverse to midpoint
+        currentLink = currentLink->next;
+        currentPosition++;
+    }
+
+    *secondHalfHead = currentLink->next; // split lists, assign second half to given address
+    currentLink->next = NULL; // sever connection
+}
+
 //</editor-fold>
 
 //<editor-fold desc="Binary Tree Functions">
@@ -318,19 +338,38 @@ void duplicateNodeToLeft(TreeNode root) { // todo: double check it works
 
 int main() { // todo: test cases and remove unused functions
 
-    printf("\n----------- Testing duplicateNodeToLeft function ------------\n\n");
+//    printf("\n----------- Testing duplicateNodeToLeft function ------------\n\n");
+//
+//    TreeNode node_20 = createTreeNode(20);
+//    TreeNode node_40 = createTreeNodeWithChildren(40, node_20, NULL);
+//    TreeNode node_30 = createTreeNodeWithChildren(30, NULL, node_40);
+//
+//    printf("\nBefore:\n");
+//    printInOrder(node_30);
+//
+//    duplicateNodeToLeft(node_30);
+//
+//    printf("\nAfter:\n");
+//    printInOrder(node_30);
 
-    TreeNode node_20 = createTreeNode(20);
-    TreeNode node_40 = createTreeNodeWithChildren(40, node_20, NULL);
-    TreeNode node_30 = createTreeNodeWithChildren(30, NULL, node_40);
+
+    printf("\n----------- Testing split function ------------\n\n");
+
+    Link split_4 = createNode(4);
+    Link split_3 = createNodeWithNextNode(3, split_4);
+    Link split_2 = createNodeWithNextNode(2, split_3);
+    Link split_1 = createNodeWithNextNode(1, split_2);
+
+    Link splitSecondHalf = NULL; // Link to assign second half of list to, should be NULL or will be overwritten
 
     printf("\nBefore:\n");
-    printInOrder(node_30);
+    printLinkedList(split_1);
 
-    duplicateNodeToLeft(node_30);
+    split(split_1, &splitSecondHalf);
 
     printf("\nAfter:\n");
-    printInOrder(node_30);
+    printLinkedList(split_1);
+    printLinkedList(splitSecondHalf);
 
 
 
