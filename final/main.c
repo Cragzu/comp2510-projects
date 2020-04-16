@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <ctype.h>
 
 //<editor-fold desc="Linked List Functions">
 
@@ -163,7 +164,7 @@ struct DNode {
     struct DNode *prev;
 };
 
-typedef struct DNode* DLink; // doubly linked list
+typedef struct DNode *DLink; // doubly linked list
 
 DLink createDNode(float data, DLink next, DLink prev) {
     DLink link = (DLink) malloc(sizeof(struct DNode));
@@ -249,8 +250,8 @@ void filter(DLink *node, bool (*isValid)(float)) {
         return;
     }
 
-    while((*node)->next) {
-        if(!isValid((*node)->data)) {
+    while ((*node)->next) {
+        if (!isValid((*node)->data)) {
             removeNode(node);
         }
         *node = (*node)->next;
@@ -264,6 +265,49 @@ bool isValidTest(float test) {
     return false;
 }
 //</editor-fold>
+
+char *stringFun(char *s) {
+    char *output;
+    output = malloc(strlen(s) + 1);
+
+    int i = 0, j = 0;
+    for (i = 0, j = 0; i < strlen(s); i++, j++) {
+        if (s[i] != ' ') {
+
+            if (s[i] == '*') { // double stars
+                output[j] = '*';
+                j++;
+                output[j] = '*';
+            } else {
+                output[j] = (char) toupper(s[i]); // convert to uppercase
+            }
+
+        } else {
+            j--; // remove space
+        }
+    }
+
+    output[j] = '\0';
+    return output;
+}
+
+
+void printWordAndSpaces(char word[500], int numberOfSpaces) {
+    while (*word) {
+        printf("%c", *word);
+        word++;
+    }
+    for (int spaceCounter = 0; spaceCounter < numberOfSpaces; spaceCounter++) {
+        printf(" ");
+    }
+}
+
+char *moveToBeginningOfNextToken(char *inputString) {
+    while (*inputString == ' ') { // move pointer forward as long as space is encountered
+        inputString++;
+    }
+    return inputString;
+}
 
 
 void printDigits(int n) { // works with 2 digits
@@ -329,11 +373,18 @@ int main() { // todo: test cases and remove unused functions
 //    printDLinkedList(head1);
 
 
-//    printf("\n----------- Testing stringFun function ------------\n\n"); // todo
-//
-//    char testString[] = "I * Seyed Javadi **";
+    printf("\n----------- Testing stringFun function ------------\n\n");
 
-//    printf("\n----------- Testing topStudents function ------------\n\n"); // todo
+    char *testString = "I * Seyed Javadi **";
+
+    printf("%s\n", testString);
+
+    testString = stringFun(testString);
+
+    printf("%s", testString);
+
+
+//    printf("\n----------- Testing topStudents function ------------\n\n"); // incomplete
 
 
     printf("\n----------- Testing printDigits function ------------\n\n");
